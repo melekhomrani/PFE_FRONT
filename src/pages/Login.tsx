@@ -1,11 +1,11 @@
-import { Box, Button, Heading, Input, VStack, Image, FormControl, FormLabel, Text, Spinner, FormErrorMessage, Flex } from "@chakra-ui/react";
+import { Box, Button, Heading, Input, VStack, FormControl, FormLabel, Text, Spinner, FormErrorMessage, Flex } from "@chakra-ui/react";
 import Header from "../components/Header";
 
 function Login() {
   return (
     <Box>
       <Header />
-      <Flex justify="center" align="center" minH="77vh">
+      <Flex justify="center" align="center" minH="76vh">
         <Box maxW="container.sm" mx="auto" px="6">
           <VStack spacing="8" mx="auto" maxW="container.sm" px="6">
             <Box>
