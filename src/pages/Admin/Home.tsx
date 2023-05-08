@@ -12,9 +12,19 @@ import useGetAllReclamations from "../../hooks/useGetAllReclamations";
 import useGetAllTypes from "../../hooks/useGetAllTypes";
 import useGetAllRoles from "../../hooks/useGetAllRoles";
 import useGetAllUsers from "../../hooks/useGetAllUsers";
-// import Progress from "../../Interfaces/EnumProgress";
+import useIsAdmin from "../../hooks/useIsAdmin";
+import useGetUserRole from "../../hooks/useGetUserRole";
 
 const Admin = () => {
+
+  //TODO: remove this
+  const { isLoading, error, isSuccess, isError, data: isAdmin } = useIsAdmin();
+  // useGetUserRole(localStorage.getItem('token') || "");
+  if (!isLoading && isSuccess)
+    console.log(isAdmin)
+
+
+
   const { isLoading: isLoadingUsers, isSuccess: isSuccessUsers, data: users } = useGetAllUsers();
   let { isLoading: isLoadingRoles, isSuccess: isSuccessRoles, data: roles } = useGetAllRoles();
 
@@ -32,10 +42,8 @@ const Admin = () => {
   if (!isLoadingReclamations && !isLoadingTypes && reclamations && types) {
     types = types.map((r: any) => {
       const count = reclamations.filter((u: any) => u.type.typeName === r.typeName).length;
-      console.log(r)
       return { ...r, count };
     });
-    console.log(reclamations)
   }
 
   if (!isLoadingTypes && !isLoadingRoles) {

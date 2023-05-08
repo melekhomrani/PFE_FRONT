@@ -82,7 +82,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
         title: "Type Created.",
         description: "Type has been created successfully",
         status: "success",
-        duration: 3000,
+        duration: 2500,
         isClosable: true,
       })
       onClose();
@@ -91,7 +91,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
         title: "An error occurred.",
         description: "Unable to create type",
         status: "error",
-        duration: 3000,
+        duration: 25000,
         isClosable: true,
       })
     }

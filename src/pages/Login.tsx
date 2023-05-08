@@ -5,7 +5,7 @@ function Login() {
   return (
     <Box>
       <Header />
-      <Flex justify="center" align="center" minH="76vh">
+      <Flex justify="center" align="center" minH="77vh">
         <Box maxW="container.sm" mx="auto" px="6">
           <VStack spacing="8" mx="auto" maxW="container.sm" px="6">
             <Box>

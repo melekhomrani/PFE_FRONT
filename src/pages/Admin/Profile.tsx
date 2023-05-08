@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import UserComponent from "../../components/User";
+import ProfileComponent from "../../components/Profile";
 import User from "../../interfaces/User";
 
 const AdminProfile = () => {
@@ -18,7 +18,7 @@ const AdminProfile = () => {
   return (
     <>
       {
-        user && <UserComponent user={user} isLoading={isLoading} />
+        user && <ProfileComponent user={user} isLoading={isLoading} />
       }
     </>
   );

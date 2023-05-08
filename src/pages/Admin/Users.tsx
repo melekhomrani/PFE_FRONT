@@ -1,8 +1,6 @@
 import {
   Button,
   Box,
-  Center,
-  Image,
   Heading,
   Table,
   TableContainer,
@@ -23,6 +21,7 @@ import { AiOutlineUserAdd } from 'react-icons/ai';
 import { useState } from 'react';
 import AddUser from '../../components/Admin/AddUser';
 import UpdateUser from '../../components/Admin/UpdateUser';
+import DeleteUser from '../../components/Admin/DeleteUser';
 
 const Users = () => {
   let { isLoading, data: users } = useGetAllUsers();
@@ -94,7 +93,7 @@ const Users = () => {
           currentUserEdit && <UpdateUser user={currentUserEdit} onClose={() => { update.onClose; setCurrentUserEdit(null) }} />
         }
         {
-          // currentUserDelete && <DeleteUser userData={currentUserDelete} onClose={() => { update.onClose; setCurrentUserDelete(null) }} />
+          currentUserDelete && <DeleteUser userData={currentUserDelete} onClose={() => { update.onClose; setCurrentUserDelete(null) }} />
         }
       </Box >
     </ChakraProvider >

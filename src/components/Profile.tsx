@@ -7,8 +7,7 @@ interface UserProps {
   isLoading: boolean;
 }
 
-const User = ({ isLoading, user }: UserProps) => {
-  const username = user.firstName + " " + user.lastName;
+const ProfileComponent = ({ isLoading, user }: UserProps) => {
   return (
     <Box bg="white" p="8">
       <Box
@@ -27,9 +26,15 @@ const User = ({ isLoading, user }: UserProps) => {
             <VStack spacing={4} mt={4}>
               <Box w="full">
                 <Text mb={1} fontWeight="bold">
-                  Name:
+                  First name:
                 </Text>
-                <Text fontSize="lg">{username}</Text>
+                <Text fontSize="lg">{user.firstName}</Text>
+              </Box>
+              <Box w="full">
+                <Text mb={1} fontWeight="bold">
+                  Last name:
+                </Text>
+                <Text fontSize="lg">{user.lastName}</Text>
               </Box>
               <Box w="full">
                 <Text mb={1} fontWeight="bold">
@@ -37,18 +42,7 @@ const User = ({ isLoading, user }: UserProps) => {
                 </Text>
                 <Text fontSize="lg">johndoe@example.com</Text>
               </Box>
-              <Box w="full">
-                <Text mb={1} fontWeight="bold">
-                  Phone:
-                </Text>
-                <Text fontSize="lg">+1 (123) 456-7890</Text>
-              </Box>
-              <Box w="full">
-                <Text mb={1} fontWeight="bold">
-                  Address:
-                </Text>
-                <Text fontSize="lg">123 Main St, Anytown, USA</Text>
-              </Box>
+
             </VStack>
           </SkeletonText>
         </Box>
@@ -82,4 +76,4 @@ const User = ({ isLoading, user }: UserProps) => {
   );
 };
 
-export default User;
+export default ProfileComponent;

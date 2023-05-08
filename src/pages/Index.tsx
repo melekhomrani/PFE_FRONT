@@ -12,7 +12,7 @@ function Home() {
   return (
     <>
       <Header />
-      <Flex align="center" justify="center" minH="76vh">
+      <Flex align="center" justify="center" minH="77vh">
         <Box maxW="container.md" mx="auto" px="6">
           <Heading as="h1" size="3xl" mb="6" textAlign="center" color="#ed1c24">
             Welcome to Esprit Reclamation Management System

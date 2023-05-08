@@ -53,7 +53,7 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
         title: "User Creation Failed.",
         description: "User has not been created successfully",
         status: "error",
-        duration: 3000,
+        duration: 2500,
         isClosable: true,
       })
     }
@@ -88,11 +88,11 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
               </HStack>
               <FormControl isRequired>
                 <FormLabel>Email</FormLabel>
-                <Input type="email" autoComplete='off' placeholder="email" name="email" />
+                <Input type="email" placeholder="email" name="email" />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Password</FormLabel>
-                <Input type="password" autoComplete="off" placeholder="password" name="password" />
+                <Input type="password" placeholder="password" name="password" />
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Role</FormLabel>

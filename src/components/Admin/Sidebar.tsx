@@ -22,7 +22,7 @@ const MySidebar = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
   const setCollapsed = useSidebarStore(state => state.setCollapsed)
   return (
-    <Box as="main" minH={"100vh"} background={"red"} transitionDuration={"1700"} zIndex="10000">
+    <Box as="main" minH={"100vh"} background={"red"} transitionDuration={"1750"} zIndex="10000">
       <Sidebar style={{ height: "100vh", padding: 0 }}>
         <Box background={"red"} height={"100vh"} >
           <Flex h={"100%"} justify="space-around" direction="column">

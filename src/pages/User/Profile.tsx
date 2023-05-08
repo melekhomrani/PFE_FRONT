@@ -1,7 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import UserComponent from "../../components/User";
+import ProfileComponent from "../../components/Profile";
 import User from "../../interfaces/User";
 
 const UserProfile = () => {
@@ -21,7 +21,7 @@ const UserProfile = () => {
     <>
       <Header />
       <Box minH="77vh">
-        <UserComponent user={user} isLoading={isLoading} />
+        <ProfileComponent user={user} isLoading={isLoading} />
       </Box>
       <Footer />
     </>
