@@ -15,8 +15,10 @@ const login = async ({ email, password }: loginParams) => {
 }
 
 const useLogin = () => {
-  const { data, isLoading, error, mutateAsync } = useMutation({ mutationFn: login });
-  return { mutate: mutateAsync, data, isLoading, error };
+  return useMutation({
+    mutationFn: (params: loginParams) => login(params),
+    mutationKey: ["login"]
+  });
 }
 
 export default useLogin;
