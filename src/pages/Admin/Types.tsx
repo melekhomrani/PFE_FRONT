@@ -33,7 +33,7 @@ const Types = () => {
 
   return (
     <Box>
-      <Box maxW={{ base: "container.xsa", md: "container.sm" }}>
+      <Box>
         {/* <NavBar /> */}
         <Flex mb={"55"} justifyContent={"space-between"} alignItems={"center"} >
           <Heading>Types</Heading>

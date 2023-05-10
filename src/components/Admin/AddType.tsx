@@ -20,6 +20,8 @@ import {
   Checkbox,
   SkeletonText,
   Text,
+  Divider,
+  Box,
 } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import useCreateType from "../../hooks/useCreateType";
@@ -33,7 +35,6 @@ interface AddTypeProps {
 
 function AddType({ isOpen, onClose }: AddTypeProps) {
 
-
   const [create, setCreate] = useState<Array<number>>([]);
   const [consult, setConsult] = useState<Array<number>>([]);
   const [notify, setNotify] = useState<Array<number>>([]);
@@ -41,30 +42,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
   const [validateur, setValidateur] = useState<Array<number>>([]);
   const toast = useToast();
   const mutation = useCreateType();
-  // const { isLoading: isLoadingRoles, data: roles } = useGetAllRoles();
-  const isLoadingRoles = false
-  const roles: Role[] = [
-    {
-      id: 1,
-      name: "admin",
-    },
-    {
-      id: 2,
-      name: "user",
-    },
-    {
-      id: 3,
-      name: "approver",
-    },
-    {
-      id: 4,
-      name: "validator",
-    },
-    {
-      id: 5,
-      name: "cosultor",
-    }
-  ]
+  const { isLoading: isLoadingRoles, data: roles } = useGetAllRoles();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -206,12 +184,11 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" form="createTypeForm" isLoading={mutation.isLoading}>
+            <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button >
+            <Box w="2" />
+            <Button variant={"outline"} colorScheme="blue" type="submit" form="createTypeForm" isLoading={mutation.isLoading}>
               Submit
             </Button>
-            <br />
-            {mutation.isError && <Text color="red">Error</Text>}
-            {mutation.isSuccess && <Text color="green">Success</Text>}
           </ModalFooter>
         </ModalContent>
       </Modal>

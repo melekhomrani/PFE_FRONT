@@ -3,9 +3,7 @@ import axios from "../axios"
 
 const getUser = async (id: number) => {
   const res = await axios.get(`/api/gest/users/${id}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    }
+    headers: { Authorization: "Bearer " + localStorage.getItem('token') }
   });
   return res.data;
 }

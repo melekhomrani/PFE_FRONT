@@ -11,9 +11,7 @@ export interface User {
 
 const createUser = async (user: User) => {
   const res = await axios.post('/api/auth/register', user, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    },
+    headers: { Authorization: "Bearer " + localStorage.getItem('token') },
   })
   return res.data
 }

@@ -29,7 +29,7 @@ const Roles = () => {
 
   return (
     <Box>
-      <Box maxW={{ base: "container.xsa", md: "container.sm" }}>
+      <Box>
         <Flex mb={"55"} justifyContent={"space-between"} alignItems={"center"} >
           <Heading>Roles</Heading>
           <Button leftIcon={<AiOutlineUserAdd />} onClick={onOpen} >Add Role</Button>

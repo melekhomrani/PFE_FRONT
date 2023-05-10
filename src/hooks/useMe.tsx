@@ -1,18 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "../axios";
 
-const getMe = async (token: string) => {
-  try {
-    const me = await axios.get("/api/gest/users/me", { headers: { "Authorization": `Bearer ${token}` } });
-    return me;
-  } catch (error) {
-    throw error;
-  }
+const getMe = async () => {
+  const res = await axios.get("/api/gest/users/isadmin", {
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+  });
+  return res.data;
 }
 
 const useMe = (token: string) => {
-  const { data, isLoading, error } = useQuery({ queryKey: ["me", token], queryFn: () => getMe(token) });
-  return { data, isLoading, error };
+  return useQuery({ queryKey: ["me", token], queryFn: () => getMe() });
 }
 
 export default useMe;
