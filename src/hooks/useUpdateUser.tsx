@@ -1,10 +1,15 @@
-
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "../axios"
-import User from "../interfaces/User";
 
+export interface UserUpdate {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: number;
+}
 
-const updateUser = async (user: User) => {
+const updateUser = async (user: UserUpdate) => {
   const res = await axios.put("/api/gest/users/" + user.id, user, {
     headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
   })
@@ -12,9 +17,13 @@ const updateUser = async (user: User) => {
 }
 
 const useUpdateUser = () => {
+  const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (user: User) => updateUser(user),
-    mutationKey: ["updateUser"]
+    mutationFn: (user: UserUpdate) => updateUser(user),
+    mutationKey: ["updateUser"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+    }
   });
 }
 

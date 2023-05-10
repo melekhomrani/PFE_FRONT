@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import ProfileComponent from "../../components/Profile";
+import useMe from "../../hooks/useMe";
 import User from "../../interfaces/User";
 
 const AdminProfile = () => {
@@ -13,12 +14,12 @@ const AdminProfile = () => {
       name: "Admin",
     }
   }
-  const { isLoading, user } = { isLoading: false, user: userData }
-  const username = user.firstName + " " + user.lastName;
+  const { isLoading: isLoadingUser, data: user } = useMe();
+  console.log(user);
   return (
     <>
       {
-        user && <ProfileComponent user={user} isLoading={isLoading} />
+        user && <ProfileComponent user={user} isLoading={isLoadingUser} />
       }
     </>
   );

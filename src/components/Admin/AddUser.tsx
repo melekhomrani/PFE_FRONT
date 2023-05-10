@@ -14,6 +14,7 @@ import {
   Select,
   HStack,
   useToast,
+  Box,
 } from "@chakra-ui/react";
 import useGetAllRoles from '../../hooks/useGetAllRoles';
 import Role from '../../interfaces/Role';
@@ -29,6 +30,15 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
   const toast = useToast();
   const mutation = useCreateUser();
 
+  const disabledBtn = () => {
+    if (toast.isActive("typeNotCreated") && toast.isActive("typeCreated")) {
+      return true;
+    }
+    return false;
+
+  }
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const user: User = {
@@ -38,27 +48,33 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
       password: e.target.password.value,
       role: e.target.roleId.value,
     };
-    mutation.mutate(user);
-    if (mutation.isSuccess) {
-      toast({
-        title: "User Created.",
-        description: "User has been created successfully",
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      })
-      onClose();
-    } else {
-      toast({
-        title: "User Creation Failed.",
-        description: "User has not been created successfully",
-        status: "error",
-        duration: 2500,
-        isClosable: true,
-      })
+    try {
+      await mutation.mutateAsync(user);
+      if (!toast.isActive("userCreated")) {
+        toast({
+          id: "userCreated",
+          title: "User Created.",
+          description: "User has been created successfully",
+          status: "success",
+          duration: 2500,
+          isClosable: true,
+        })
+        onClose();
+      }
     }
-  };
-
+    catch (error) {
+      if (!toast.isActive("userNotCreated")) {
+        toast({
+          id: "userNotCreated",
+          title: "Error.",
+          description: "Unable to create user.",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        })
+      }
+    }
+  }
   return (
     <>
       <Modal
@@ -101,6 +117,7 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
                   id="roleId"
                   className="form-select"
                   placeholder='Select Role'
+                  defaultValue="melek"
                 >
                   {roles?.map((role: Role) => (
                     <option key={role.id} value={role.id}>
@@ -112,7 +129,9 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
             </form>
           </ModalBody>
           <ModalFooter>
-            <Button type="submit" form="createUserForm">
+            <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button >
+            <Box w="2" />
+            <Button variant={"outline"} disabled={false} colorScheme="blue" type="submit" form="createUserForm" isLoading={mutation.isLoading}>
               Submit
             </Button>
           </ModalFooter>

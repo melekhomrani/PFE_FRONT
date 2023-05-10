@@ -19,6 +19,8 @@ import useGetAllTypes from '../../hooks/useGetAllTypes';
 import { AiOutlineUserAdd } from 'react-icons/ai';
 import Type from '../../interfaces/Type';
 import AddType from '../../components/Admin/AddType';
+import useGetAccessFlow from '../../hooks/useGetAccessFlow';
+import useGetAllAccessFlows from '../../hooks/useGetAllAccessFlows';
 
 
 const Types = () => {
@@ -26,7 +28,15 @@ const Types = () => {
   //TODO: edit type
   //TODO: delete type
 
-  const { isLoading, isSuccess, isError, data: types, error, refetch } = useGetAllTypes();
+
+  const { isLoading: isLoadingType, data: type } = useGetAllAccessFlows();
+  !isLoadingType && console.log(type);
+
+  let { isLoading, isSuccess, data: types } = useGetAllTypes();
+  types = types && types.sort((a: Type, b: Type) => {
+    return new Date(b.dateCreation).getTime() - new Date(a.dateCreation).getTime();
+  });
+
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [typeToEdit, setTypeToEdit] = useState<Type | null>(null);
   const [typeToDelete, setTypeToDelete] = useState<Type | null>(null);
@@ -68,8 +78,8 @@ const Types = () => {
                     <Td textAlign={"center"} isNumeric>{type.id}</Td>
                     <Td textAlign={"center"}>{type.typeName}</Td>
                     <Td textAlign={"center"}>
-                      <Button colorScheme={"blue"} mr={"2"} onClick={() => { setTypeToEdit(type) }}>Edit</Button>
-                      <Button colorScheme={"red"} onClick={() => { setTypeToDelete(type) }}>Delete</Button>
+                      <Button variant={"outline"} colorScheme={"blue"} mr={"2"} onClick={() => { setTypeToEdit(type) }}>Edit</Button>
+                      <Button variant={"outline"} colorScheme={"red"} onClick={() => { setTypeToDelete(type) }}>Delete</Button>
                     </Td>
                   </Tr>
                 ))

@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "../axios"
 
 export interface Type {
@@ -6,8 +6,8 @@ export interface Type {
   notify: Array<number>;
   create: Array<number>;
   consult: Array<number>;
-  approbateur: Array<number>;
-  validateur: Array<number>;
+  approve: Array<number>;
+  validate: Array<number>;
 }
 
 const createType = async (type: Type) => {
@@ -18,9 +18,13 @@ const createType = async (type: Type) => {
 }
 
 const useCreateType = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (type: Type) => createType(type),
-    mutationKey: ["createType"]
+    mutationKey: ["createType"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["types"]);
+    }
   });
 }
 

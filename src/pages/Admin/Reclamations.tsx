@@ -20,17 +20,23 @@ import ReviewReclamation from '../../components/Admin/Reclamation';
 
 
 const Reclamations = () => {
-  const { isLoading, isSuccess, isError, data, error, refetch } = useGetAllReclamations();
+  const { isLoading, isSuccess, data, } = useGetAllReclamations();
 
   const allReclamations = data;
   const [currentReclamation, setCurrentReclamation] = useState<Reclamation | null>(null);
   console.log(allReclamations)
 
-  const viewReclam = useDisclosure();
+  const addNewReclam = useDisclosure();
+  const updateReclam = useDisclosure();
+  const deleteReclam = useDisclosure();
+
+  const [reclamToUpdate, setReclamToUpdate] = useState<Reclamation | null>(null);
+  const [reclamToDelete, setReclamToDelete] = useState<Reclamation | null>(null);
 
   return (
     <Box>
       <Heading mb={"55"}>Reclamations</Heading>
+
       <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
         <Table size={'md'} variant={"simple"}>
           <Thead>
@@ -68,11 +74,12 @@ const Reclamations = () => {
                 <Td textAlign={"center"}>{reclamation.progress}</Td>
                 <Td textAlign={"center"}>{reclamation.type.typeName}</Td>
                 <Td textAlign={"center"}>
-                  <Button colorScheme="blue" size="sm" mr="2"
+                  <Button variant={"outline"} colorScheme="blue" size="sm" mr="2"
                     onClick={() => {
                       setCurrentReclamation(reclamation);
                       console.log("clicked from view reclam")
                     }}>View</Button>
+                  <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
                 </Td>
               </Tr>)
             ))}
@@ -83,8 +90,8 @@ const Reclamations = () => {
         currentReclamation && (
           < ReviewReclamation
             reclam={currentReclamation}
-            isOpen={viewReclam.isOpen}
-            onClose={() => { viewReclam.onClose; setCurrentReclamation(null) }}
+            isOpen={updateReclam.isOpen}
+            onClose={() => { updateReclam.onClose; setCurrentReclamation(null) }}
           />
         )
       }

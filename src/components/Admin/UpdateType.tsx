@@ -19,35 +19,38 @@ import {
   Flex,
   Checkbox,
   SkeletonText,
-  Text,
-  Divider,
   Box,
 } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
-import useCreateType, { Type } from "../../hooks/useCreateType";
+import useGetAccessFlow from "../../hooks/useGetAccessFlow";
+import useGetAllAccessFlows from "../../hooks/useGetAllAccessFlows";
 import useGetAllRoles from "../../hooks/useGetAllRoles";
+import useUpdateType from "../../hooks/useUpdateType";
 import Role from "../../interfaces/Role";
 
-interface AddTypeProps {
+interface UpdateTypeProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-function AddType({ isOpen, onClose }: AddTypeProps) {
+function UpdateType({ isOpen, onClose }: UpdateTypeProps) {
 
   const { isLoading: isLoadingRoles, data: roles } = useGetAllRoles();
 
+  // const { isLoading: isLoadingType, data: type } = useGetAccessFlow(3);
+  const { isLoading: isLoadingType, data: type } = useGetAllAccessFlows();
+  isLoadingType && console.log(type);
   const toast = useToast();
-  const mutation = useCreateType();
+  const mutation = useUpdateType();
 
   const [create, setCreate] = useState<Array<number>>([]);
   const [consult, setConsult] = useState<Array<number>>([]);
   const [notify, setNotify] = useState<Array<number>>([]);
-  const [approve, setapprove] = useState<Array<number>>([]);
-  const [validate, setvalidate] = useState<Array<number>>([]);
+  const [approbateur, setApprobateur] = useState<Array<number>>([]);
+  const [validateur, setValidateur] = useState<Array<number>>([]);
 
   const disabledBtn = () => {
-    if (create.length === 0 || consult.length === 0 || notify.length === 0 || approve.length === 0 || validate.length === 0) {
+    if (create.length === 0 || consult.length === 0 || notify.length === 0 || approbateur.length === 0 || validateur.length === 0) {
       return true;
     }
     return false;
@@ -55,16 +58,17 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const newReclamType: Type = {
+    const newReclamType = {
+      id: 10,
       typeName: e.target.typeName.value,
       notify: notify,
       create: create,
       consult: consult,
-      approve: approve,
-      validate: validate,
+      approbateur: approbateur,
+      validateur: validateur,
     }
     try {
-      await mutation.mutateAsync(newReclamType);
+      // await mutation.mutateAsync(newReclamType);
       if (!toast.isActive("typeCreated")) {
         toast({
           id: "typeCreated",
@@ -174,7 +178,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
                       <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
                         {isLoadingRoles ? <SkeletonText /> :
                           roles.map((role: any) => (
-                            <Checkbox key={role.id} value={role.id} onChange={(e) => handleCheck(e, setapprove)}>{role.name}</Checkbox>
+                            <Checkbox key={role.id} value={role.id} onChange={(e) => handleCheck(e, setApprobateur)}>{role.name}</Checkbox>
                           ))
                         }
                       </Flex>
@@ -189,7 +193,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
                       <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
                         {isLoadingRoles ? <SkeletonText /> :
                           roles.map((role: any) => (
-                            <Checkbox key={role.id} value={role.id} onChange={(e) => handleCheck(e, setvalidate)}>{role.name}</Checkbox>
+                            <Checkbox key={role.id} value={role.id} onChange={(e) => handleCheck(e, setValidateur)}>{role.name}</Checkbox>
                           ))
                         }
                       </Flex>
@@ -202,7 +206,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
           <ModalFooter>
             <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button >
             <Box w="2" />
-            <Button disabled={!disabledBtn()} colorScheme="blue" type="submit" form="createTypeForm" isLoading={mutation.isLoading}>
+            <Button disabled={disabledBtn()} colorScheme="blue" type="submit" form="createTypeForm" isLoading={mutation.isLoading}>
               Submit
             </Button>
           </ModalFooter>
@@ -212,4 +216,4 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
   );
 }
 
-export default AddType;
+export default UpdateType;

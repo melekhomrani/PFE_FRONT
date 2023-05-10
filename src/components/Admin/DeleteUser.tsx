@@ -12,6 +12,7 @@ import {
   Box,
   Flex,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import useDeleteUser from "../../hooks/useDeleteUser";
 import User from "../../interfaces/User";
@@ -26,25 +27,30 @@ function DeleteUser({ onClose, userData }: DeleteUserProps) {
   const toast = useToast();
   const mutation = useDeleteUser();
   const handleDelete = async () => {
-    mutation.mutate(userData);
-    if (mutation.isSuccess) {
-      toast({
-        title: "User deleted.",
-        description: "User deleted successfully.",
-        status: "success",
-        duration: 2500,
-        isClosable: true,
-      });
+    try {
+      await mutation.mutateAsync(userData.id);
+      if (!toast.isActive("userDeleted")) {
+        toast({
+          id: "userDeleted",
+          title: "User Deleted.",
+          description: "User has been deleted successfully",
+          status: "success",
+          duration: 2500,
+          isClosable: true,
+        })
+      }
       onClose();
-    } else {
-      console.log(mutation.error)
-      toast({
-        title: "Error",
-        description: "An error has occurred.",
-        status: "error",
-        duration: 2500,
-        isClosable: true,
-      });
+    } catch (error) {
+      if (!toast.isActive("userNotDeleted")) {
+        toast({
+          id: "userNotDeleted",
+          title: "Error.",
+          description: "Unable to delete user.",
+          status: "error",
+          duration: 2500,
+          isClosable: true,
+        })
+      }
     }
   }
 
@@ -56,9 +62,7 @@ function DeleteUser({ onClose, userData }: DeleteUserProps) {
           <ModalHeader fontWeight={"bold"}>Confirm deleting user</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <FormControl>
-              <FormLabel fontWeight={"bold"}>Are you sure you want to delete this user?</FormLabel>
-            </FormControl>
+            <Text fontWeight={"bold"}>Are you sure you want to delete this user?</Text>
             <Flex direction={"column"} justify="space-between" align={"flex-start"}>
               <Box mt="4" flex="1">
                 <Box mb="2" fontSize="sm" fontWeight="semibold">Email</Box>
@@ -75,10 +79,9 @@ function DeleteUser({ onClose, userData }: DeleteUserProps) {
             </Flex>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button variant={"outline"} colorScheme="blue" mr={3} onClick={onClose}>
               Cancel
             </Button>
-            {/* <Button variant="ghost">Secondary Action</Button> */}
             <Button colorScheme="red" onClick={() => handleDelete()} >Delete</Button>
           </ModalFooter>
         </ModalContent>

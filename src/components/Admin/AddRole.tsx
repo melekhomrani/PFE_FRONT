@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -14,34 +13,33 @@ import {
   useToast,
   Box,
 } from "@chakra-ui/react";
-import useUpdateRole from '../../hooks/useUpdateRole';
-import Role from "../../interfaces/Role";
+import useCreateRole from "../../hooks/useCreateRole";
 
-interface UpdateRoleProps {
-  roleData: Role;
+interface AddRoleProps {
+  isOpen: boolean;
   onClose: () => void;
 }
 
-function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
+interface Role {
+  name: string
+}
+
+function AddRole({ isOpen, onClose }: AddRoleProps) {
 
   const toast = useToast();
-  // const mutation = useUpdateRole();
-  const [role, setRole] = useState(roleData)
-  const mutation = useUpdateRole();
-
+  const mutation = useCreateRole();
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const role: Role = {
-      id: roleData.id,
       name: e.target.name.value,
     }
     try {
       await mutation.mutateAsync(role);
-      if (!toast.isActive("roleUpdated")) {
+      if (!toast.isActive("roleCreated")) {
         toast({
-          id: "roleUpdated",
-          title: "Role Updated.",
-          description: "Role has been updated successfully",
+          id: "roleCreated",
+          title: "Role Created.",
+          description: "Role has been created successfully",
           status: "success",
           duration: 2500,
           isClosable: true,
@@ -49,11 +47,11 @@ function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
       }
       onClose();
     } catch (error) {
-      if (!toast.isActive("roleNotUpdated")) {
+      if (!toast.isActive("roleNotCreated")) {
         toast({
-          id: "roleNotUpdated",
+          id: "roleNotCreated",
           title: "Error.",
-          description: "Unable to update role.",
+          description: "Unable to create role.",
           status: "error",
           duration: 2500,
           isClosable: true,
@@ -65,22 +63,22 @@ function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
 
   return (
     <>
-      <Modal isOpen={true} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update Role</ModalHeader>
+          <ModalHeader>Add New Role</ModalHeader>
           <ModalCloseButton />
 
           <ModalBody>
             <form
-              id="UpdateRoleForm"
+              id="addRoleForm"
               onSubmit={(event) => {
                 handleSubmit(event)
               }}
             >
               <FormControl isRequired>
                 <FormLabel>Role name</FormLabel>
-                <Input autoFocus type="text" id="name" name="name" defaultValue={role.name} />
+                <Input autoFocus type="text" id="name" name="name" />
               </FormControl>
             </form>
           </ModalBody>
@@ -88,7 +86,7 @@ function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
           <ModalFooter>
             <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button>
             <Box w="2" />
-            <Button colorScheme="blue" mr={3} type="submit" form="UpdateRoleForm">
+            <Button colorScheme="blue" mr={3} type="submit" form="addRoleForm">
               Submit
             </Button>
           </ModalFooter>
@@ -98,4 +96,4 @@ function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
   );
 }
 
-export default UpdateRole;
+export default AddRole;

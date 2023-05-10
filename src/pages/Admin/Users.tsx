@@ -16,29 +16,43 @@ import {
   Divider,
 } from '@chakra-ui/react'
 import useGetAllUsers from '../../hooks/useGetAllUsers';
-import User from '../../interfaces/User';
+import IUser from '../../interfaces/User';
 import { AiOutlineUserAdd } from 'react-icons/ai';
 import { useState } from 'react';
 import AddUser from '../../components/Admin/AddUser';
 import UpdateUser from '../../components/Admin/UpdateUser';
 import DeleteUser from '../../components/Admin/DeleteUser';
 
+// TODO: all done for users, now do the same for roles
+
+interface User extends IUser {
+  dateCreation: any;
+  dateModification: any;
+}
+
 const Users = () => {
   let { isLoading, data: users } = useGetAllUsers();
-  const add = useDisclosure();
-  const update = useDisclosure();
+  users = users && users.sort((a: User, b: User) => {
+    return new Date(b.dateCreation).getTime() - new Date(a.dateCreation).getTime();
+  });
+  const addNewUser = useDisclosure();
+  const updateUser = useDisclosure();
+  const deleteUser = useDisclosure();
 
-  const [currentUserEdit, setCurrentUserEdit] = useState<User | null>(null);
-  const [currentUserDelete, setCurrentUserDelete] = useState<User | null>(null);
+  const [userToUpdate, setuserToUpdate] = useState<User | null>(null);
+  const [userToDelete, setuserToDelete] = useState<User | null>(null);
 
+  if (users) {
+    console.log(users);
+  }
 
   return (
     <ChakraProvider>
       <Box>
         <Flex mb={"55"} justify={"space-between"} alignItems={"center"} >
           <Heading>Users</Heading>
-          <Button leftIcon={<AiOutlineUserAdd />} onClick={add.onOpen} >New User</Button>
-          <AddUser isOpen={add.isOpen} onClose={add.onClose} />
+          <Button leftIcon={<AiOutlineUserAdd />} onClick={addNewUser.onOpen} >New User</Button>
+          <AddUser isOpen={addNewUser.isOpen} onClose={addNewUser.onClose} />
         </Flex>
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
           <Table size={'xs'} variant={"simple"}>
@@ -79,9 +93,9 @@ const Users = () => {
                     <Td textAlign={"center"}>{user.email}</Td>
                     <Td textAlign={"center"}>{user.role.name}</Td>
                     <Td textAlign={"center"}>
-                      <Button variant={"outline"} colorScheme={"blue"} onClick={() => setCurrentUserEdit(user)}>edit</Button>
+                      <Button variant={"outline"} colorScheme={"blue"} onClick={() => setuserToUpdate(user)}>edit</Button>
                       <> </>
-                      <Button variant={"outline"} colorScheme={"red"} onClick={() => setCurrentUserDelete(user)} >delete</Button>
+                      <Button variant={"outline"} colorScheme={"red"} onClick={() => setuserToDelete(user)} >delete</Button>
                     </Td>
                   </Tr>
                 ))
@@ -90,10 +104,10 @@ const Users = () => {
           </Table>
         </TableContainer>
         {
-          currentUserEdit && <UpdateUser user={currentUserEdit} onClose={() => { update.onClose; setCurrentUserEdit(null) }} />
+          userToUpdate && <UpdateUser userData={userToUpdate} onClose={() => { updateUser.onClose; setuserToUpdate(null) }} />
         }
         {
-          currentUserDelete && <DeleteUser userData={currentUserDelete} onClose={() => { update.onClose; setCurrentUserDelete(null) }} />
+          userToDelete && <DeleteUser userData={userToDelete} onClose={() => { deleteUser.onClose; setuserToDelete(null) }} />
         }
       </Box >
     </ChakraProvider >

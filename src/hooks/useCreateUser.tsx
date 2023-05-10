@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import axios from '../axios'
 
 export interface User {
@@ -17,9 +17,13 @@ const createUser = async (user: User) => {
 }
 
 const useCreateUser = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (user: User) => createUser(user),
-    mutationKey: ["createUser"]
+    mutationKey: ["createUser"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+    }
   })
 }
 

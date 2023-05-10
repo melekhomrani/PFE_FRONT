@@ -40,7 +40,7 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
                 <Text mb={1} fontWeight="bold">
                   Email:
                 </Text>
-                <Text fontSize="lg">johndoe@example.com</Text>
+                <Text fontSize="lg">{user.email}</Text>
               </Box>
 
             </VStack>

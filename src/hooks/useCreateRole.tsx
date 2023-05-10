@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "../axios"
 
 export interface Role {
@@ -6,14 +6,21 @@ export interface Role {
 }
 
 const createRole = async (role: Role) => {
-  const res = await axios.post("/api/gest/roles", role)
+  const res = await axios.post("/api/gest/roles", role, {
+    headers: { Authorization: 'Bearer ' + localStorage.getItem("token") }
+  }
+  )
   return res.data;
 }
 
 const useCreateRole = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (role: Role) => createRole(role),
-    mutationKey: ["createRole"]
+    mutationKey: ["createRole"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["roles"]);
+    }
   });
 }
 

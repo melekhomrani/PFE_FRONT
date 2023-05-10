@@ -16,21 +16,14 @@ import useIsAdmin from "../../hooks/useIsAdmin";
 import useGetUserRole from "../../hooks/useGetUserRole";
 
 const Admin = () => {
-
-  //TODO: remove this
-  const { isLoading, error, isSuccess, isError, data: isAdmin } = useIsAdmin();
-  // useGetUserRole(localStorage.getItem('token') || "");
-  if (!isLoading && isSuccess)
-    console.log(isAdmin)
-
-
-
   const { isLoading: isLoadingUsers, isSuccess: isSuccessUsers, data: users } = useGetAllUsers();
   let { isLoading: isLoadingRoles, isSuccess: isSuccessRoles, data: roles } = useGetAllRoles();
 
   let { isLoading: isLoadingReclamations, data: reclamations } = useGetAllReclamations();
   let { isLoading: isLoadingTypes, data: types } = useGetAllTypes();
   const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+  const limit = 4;
 
   if (!isLoadingRoles && !isLoadingUsers && isSuccessRoles && isSuccessUsers) {
     roles = roles.map((r: any) => {
@@ -44,6 +37,7 @@ const Admin = () => {
       const count = reclamations.filter((u: any) => u.type.typeName === r.typeName).length;
       return { ...r, count };
     });
+    types = types.sort((a: any, b: any) => b.count - a.count);
   }
 
   if (!isLoadingTypes && !isLoadingRoles) {
@@ -67,22 +61,6 @@ const Admin = () => {
               <StatLabel>Number of reclamations</StatLabel>
               <StatNumber>{reclamations.length}</StatNumber>
             </Stat>
-            {/* <Stat>
-              <StatLabel>Number of admins</StatLabel>
-              <StatNumber>{users.filter((u: any) => u.role.name === "Admin").length}</StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Number of technical issues</StatLabel>
-              <StatNumber>{reclamationData[0].count}</StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Number of billing issues</StatLabel>
-              <StatNumber>{reclamationData[1].count}</StatNumber>
-            </Stat>
-            <Stat>
-              <StatLabel>Number of other issues</StatLabel>
-              <StatNumber>{reclamationData[2].count}</StatNumber>
-            </Stat> */}
           </SimpleGrid>
           <Flex mb={12}>
             <Flex justify={"stretch"} align="stretch" direction={"column"} bgColor={""} flex="1" borderWidth="1px" borderRadius="lg" overflow="hidden">
@@ -106,7 +84,17 @@ const Admin = () => {
                     ))}
                   </Pie>
                   <Tooltip />
-                  <Legend />
+                  <Legend payload={types.filter((entry: any, index: any) => index < limit)
+                    .map((entry: any, index: any) => {
+                      console.log(entry)
+                      return {
+                        id: entry.id,
+                        value: `${entry.typeName}`,
+                        type: "square",
+                        color: COLORS[index % COLORS.length],
+                      }
+                    })}
+                  />
                 </PieChart>
               </Flex>
             </Flex>
@@ -131,7 +119,15 @@ const Admin = () => {
                     ))}
                   </Pie>
                   <Tooltip />
-                  <Legend />
+                  <Legend payload={roles.filter((entry: any, index: any) => index < limit)
+                    .map((entry: any, index: any) => {
+                      return {
+                        id: entry.id,
+                        value: `${entry.name}`,
+                        type: "square",
+                        color: COLORS[index % COLORS.length],
+                      }
+                    })} />
                 </PieChart>
               </Flex>
             </Box>

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import {
   Button,
@@ -17,14 +16,27 @@ import {
 } from '@chakra-ui/react'
 import useGetAllRoles from '../../hooks/useGetAllRoles';
 import { AiOutlineUserAdd } from 'react-icons/ai';
-import Role from '../../interfaces/Role';
+import IRole from '../../interfaces/Role';
+import AddRole from '../../components/Admin/AddRole';
+import DeleteRole from '../../components/Admin/DeleteRole';
 import UpdateRole from '../../components/Admin/UpdateRole';
 
-const Roles = () => {
-  const { isLoading, isSuccess, isError, data: roles } = useGetAllRoles();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+// TODO: all done for roles, now do the same for types
 
-  const [roleToEdit, setRoleToEdit] = useState<Role | null>(null);
+interface Role extends IRole {
+  dateCreation: string;
+  dateModification: string;
+}
+
+const Roles = () => {
+  let { isLoading, isSuccess, isError, data: roles } = useGetAllRoles();
+  const addNewRole = useDisclosure();
+  const updateRole = useDisclosure();
+  const deleteRole = useDisclosure();
+  roles = roles && roles.sort((a: Role, b: Role) => {
+    return new Date(b.dateCreation).getTime() - new Date(a.dateCreation).getTime();
+  });
+  const [roleToUpdate, setRoleToUpdate] = useState<Role | null>(null);
   const [roleToDelete, setRoleToDelete] = useState<Role | null>(null);
 
   return (
@@ -32,8 +44,8 @@ const Roles = () => {
       <Box>
         <Flex mb={"55"} justifyContent={"space-between"} alignItems={"center"} >
           <Heading>Roles</Heading>
-          <Button leftIcon={<AiOutlineUserAdd />} onClick={onOpen} >Add Role</Button>
-          {/* <AddRole isOpen={isOpen} onClose={onClose} /> */}
+          <Button leftIcon={<AiOutlineUserAdd />} onClick={addNewRole.onOpen} >Add Role</Button>
+          <AddRole isOpen={addNewRole.isOpen} onClose={addNewRole.onClose} />
         </Flex>
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
           <Table size={'md'} variant={"simple"}>
@@ -64,9 +76,9 @@ const Roles = () => {
                     <Td textAlign={"center"}>{role.name}</Td>
                     <Td textAlign={"center"}>
                       <Button onClick={() => {
-                        setRoleToEdit(role);
-                      }} colorScheme={"blue"} mr={"2"}>Edit</Button>
-                      <Button colorScheme={"red"} onClick={() => { setRoleToDelete(role) }}>Delete</Button>
+                        setRoleToUpdate(role);
+                      }} variant="outline" colorScheme={"blue"} mr={"2"}>Edit</Button>
+                      <Button variant="outline" colorScheme={"red"} onClick={() => { setRoleToDelete(role) }}>Delete</Button>
                     </Td>
                   </Tr>)
                 )
@@ -76,7 +88,10 @@ const Roles = () => {
           </Table>
         </TableContainer>
         {
-          <UpdateRole onClose={onClose} role={roleToEdit} />
+          roleToUpdate && <UpdateRole roleData={roleToUpdate} onClose={() => { updateRole.onClose; setRoleToUpdate(null) }} />
+        }
+        {
+          roleToDelete && <DeleteRole role={roleToDelete} onClose={() => { deleteRole.onClose; setRoleToDelete(null) }} />
         }
       </Box>
     </Box>

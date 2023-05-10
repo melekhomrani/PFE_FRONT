@@ -77,6 +77,11 @@ const MySidebar = () => {
                   icon={<MdOutlineAdminPanelSettings />}
                 />
                 <Item
+                  title="Access Flows"
+                  to="accessFlows"
+                  icon={<MdOutlineAdminPanelSettings />}
+                />
+                <Item
                   title="Calendar"
                   to="calendar"
                   icon={<BsCalendar4Week />}

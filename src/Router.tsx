@@ -13,6 +13,7 @@ import Calendar from "./pages/Admin/Calendar";
 // user pages
 import UserHome from "./pages/User/Home";
 import UserProfile from "./pages/User/Profile";
+import AdminAccessFlows from "./pages/Admin/AccessFlows";
 
 export default function Router() {
   return (
@@ -33,6 +34,7 @@ export default function Router() {
           <Route path="reclamations" element={<AdminReclamations />} />
           <Route path="reclamationTypes" element={<AdminTypes />} />
           <Route path="roles" element={<AdminRoles />} />
+          <Route path="accessFlows" element={<AdminAccessFlows />} />
           <Route path="calendar" element={<Calendar />} />
           <Route path="*" element={<h1>404</h1>} />
         </Route>

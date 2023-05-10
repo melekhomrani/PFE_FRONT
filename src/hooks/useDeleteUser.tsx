@@ -1,16 +1,22 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "../axios";
-import User from "../interfaces/User";
 
-const deleteUser = async (user: User) => {
-  const res = await axios.delete(`/api/gest/users/${user.id}`, {
+const deleteUser = async (userId: number) => {
+  const res = await axios.delete(`/api/gest/users/${userId}`, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
   });
   return res.data;
 };
 
 const useDeleteUser = () => {
-  return useMutation({ mutationFn: (user: User) => deleteUser(user), mutationKey: ["deleteUser"] })
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (userId: number) => deleteUser(userId),
+    mutationKey: ["deleteUser"],
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+    }
+  })
 }
 
 export default useDeleteUser
