@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react';
 import {
   Button,
@@ -21,6 +20,8 @@ import Type from '../../interfaces/Type';
 import AddType from '../../components/Admin/AddType';
 import useGetAccessFlow from '../../hooks/useGetAccessFlow';
 import useGetAllAccessFlows from '../../hooks/useGetAllAccessFlows';
+import UpdateType from '../../components/Admin/UpdateType';
+import DeleteType from '../../components/Admin/DeleteType';
 
 
 const Types = () => {
@@ -87,6 +88,13 @@ const Types = () => {
             </Tbody>
           </Table>
         </TableContainer>
+
+        {
+          typeToEdit && <UpdateType onClose={() => { onClose; setTypeToEdit(null) }} typeData={typeToEdit} />
+        }
+        {
+          typeToDelete && <DeleteType onClose={() => { onClose; setTypeToDelete(null) }} typeData={typeToDelete} />
+        }
       </Box>
     </Box>
   )

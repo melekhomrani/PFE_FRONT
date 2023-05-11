@@ -2,12 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "../axios"
 import { Type } from "./useCreateType";
 
-interface UpdateType extends Type {
+export interface UpdateType extends Type {
   id: number;
 }
 
 const updateType = async (type: UpdateType) => {
-  const res = await axios.put(`/api/gest/roles/${type.id}`, type, {
+  const res = await axios.put(`/api/gest/reclamationTypes/${type.id}`, type, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
   });
   return res.data;

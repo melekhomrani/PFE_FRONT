@@ -11,7 +11,7 @@ export interface Type {
 }
 
 const createType = async (type: Type) => {
-  const res = await axios.post("/api/gest/reclamationTypes/new", type, {
+  const res = await axios.post("/api/gest/reclamationTypes", type, {
     headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
   })
   return res.data;

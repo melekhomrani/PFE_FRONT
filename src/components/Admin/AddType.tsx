@@ -202,7 +202,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
           <ModalFooter>
             <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button >
             <Box w="2" />
-            <Button disabled={!disabledBtn()} colorScheme="blue" type="submit" form="createTypeForm" isLoading={mutation.isLoading}>
+            <Button isDisabled={disabledBtn()} colorScheme="blue" type="submit" form="createTypeForm" isLoading={mutation.isLoading}>
               Submit
             </Button>
           </ModalFooter>

@@ -15,24 +15,30 @@ import {
   useDisclosure,
   Skeleton,
 } from '@chakra-ui/react'
-import useGetAllTypes from '../../hooks/useGetAllTypes';
 import { AiFillPlusSquare } from 'react-icons/ai';
-import Type from '../../interfaces/Type';
-import AddType from '../../components/Admin/AddType';
-import useGetAccessFlow from '../../hooks/useGetAccessFlow';
 import useGetAllAccessFlows from '../../hooks/useGetAllAccessFlows';
 
 import AccessFlow from '../../interfaces/AccessFlow';
 
+
+// const countRoles = (accessFlow: AccessFlow) => {
+//   const counts: { [key: number]: { [key: string]: number } } = {};
+//   console.log("AAAAAAAAAAAAAAAAA", accessFlow.approve)
+//   const roles = [...accessFlow.approve, ...accessFlow.consult, ...accessFlow.create, ...accessFlow.notify, ...accessFlow.validate];
+//   roles.forEach(role => {
+//     if (!counts[accessFlow.id]) {
+//       counts[accessFlow.id] = {};
+//     }
+//     if (!counts[accessFlow.id][role.name]) {
+//       counts[accessFlow.id][role.name] = 0;
+//     }
+//     counts[accessFlow.id][role.name]++;
+//   });
+//   return counts;
+// }
+
 const AdminAccessFlows = () => {
   const { isLoading, isSuccess, data: accessFlows } = useGetAllAccessFlows();
-  !isLoading && console.log(accessFlows);
-  const approveCount = accessFlows && accessFlows.map((accessFlow: AccessFlow) => accessFlow.approve.length);
-  const consultCount = accessFlows && accessFlows.map((accessFlow: AccessFlow) => accessFlow.consult.length);
-  const createCount = accessFlows && accessFlows.map((accessFlow: AccessFlow) => accessFlow.create.length);
-  const notifyCount = accessFlows && accessFlows.map((accessFlow: AccessFlow) => accessFlow.notify.length);
-  const validateCount = accessFlows && accessFlows.map((accessFlow: AccessFlow) => accessFlow.validate.length);
-  console.log(approveCount);
   return (
     <Box>
       <Box>
@@ -86,11 +92,11 @@ const AdminAccessFlows = () => {
                     <Tr key={accessFlow.id}>
                       <Td textAlign={"center"}>{accessFlow.id}</Td>
                       <Td textAlign={"center"}>{accessFlow.reclamationType.typeName}</Td>
-                      <Td textAlign={"center"}>{approveCount}</Td>
-                      <Td textAlign={"center"}>{consultCount}</Td>
-                      <Td textAlign={"center"}>{createCount}</Td>
-                      <Td textAlign={"center"}>{notifyCount}</Td>
-                      <Td textAlign={"center"}>{validateCount}</Td>
+                      <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
+                      <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
+                      <Td textAlign={"center"}>{accessFlow.create.length}</Td>
+                      <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
+                      <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
                       <Td textAlign={"center"}>
                         <Button variant={"outline"} colorScheme="blue" mr={3}>
                           Edit

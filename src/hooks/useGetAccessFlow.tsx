@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "../axios";
 
 const getAccessFlow = async (typeId: number) => {
-  const res = await axios.get(`/api/gest/accessFlows/${typeId}`, {
+  const res = await axios.get(`/api/gest/accessFlows/reclamationType/${typeId}`, {
     headers: { Authorization: "Bearer " + localStorage.getItem("token") },
   });
   return res.data;
