@@ -8,7 +8,6 @@ const getAllTypes = async () => {
   return res.data;
 }
 
-
 const useGetAllTypes = () => {
   return useQuery({ queryKey: ["types"], queryFn: getAllTypes });
 }

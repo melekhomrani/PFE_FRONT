@@ -17,7 +17,7 @@ const useUpdateType = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: updateType,
-    onSuccess: () => queryClient.invalidateQueries(["roles"])
+    onSuccess: () => queryClient.invalidateQueries(["types"])
   });
 }
 

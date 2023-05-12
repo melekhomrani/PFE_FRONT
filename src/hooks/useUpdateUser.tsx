@@ -11,7 +11,7 @@ export interface UserUpdate {
 
 const updateUser = async (user: UserUpdate) => {
   const res = await axios.put("/api/gest/users/" + user.id, user, {
-    headers: { Authorization: 'Bearer ' + localStorage.getItem("token") },
+    headers: { Authorization: "Bearer " + localStorage.getItem("token") },
   })
   return res.data;
 }
