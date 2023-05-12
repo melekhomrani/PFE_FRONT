@@ -42,11 +42,13 @@ const MySidebar = () => {
               <Image
                 textAlign={"center"}
                 _hover={{ cursor: "pointer" }}
+                alt={"Logo"}
                 src={Logo} w={"3xs"} marginBottom="5" />
             </Flex>
             <Menu style={{ background: "red" }}>
-              <Box p={collapsed ? "" : "10px"} bgColor="red">
+              <Box as="ul" p={collapsed ? "" : "10px"} bgColor="red">
                 <Item
+                  data-testid="dashboard"
                   title="Dashboard"
                   to=" "
                   icon={<RiDashboardFill />}

@@ -15,7 +15,7 @@ function MySidebarItem({ title, to, icon }: ItemProps) {
       {({ isActive }) =>
         <>
           <MenuItem
-            active={isActive}
+            // active={isActive}
             style={{
               color: isActive ? "red" : "white",
               backgroundColor: isActive ? "white" : "transparent",
@@ -23,10 +23,12 @@ function MySidebarItem({ title, to, icon }: ItemProps) {
             }}
             icon={icon}
           >
-            <Text _hover={{
-              color: isActive ? "red" : "gray.300",
-              background: isActive ? "white" : "white.400"
-            }}>{title}</Text>
+            <Text
+
+              _hover={{
+                color: isActive ? "red" : "gray.300",
+                background: isActive ? "white" : "white.400"
+              }}>{title}</Text>
           </MenuItem>
         </>
       }

@@ -14,28 +14,29 @@ import Calendar from "./pages/Admin/Calendar";
 import UserHome from "./pages/User/Home";
 import UserProfile from "./pages/User/Profile";
 import AdminAccessFlows from "./pages/Admin/AccessFlows";
+import AuthGuard from "./components/AuthGuard";
 
 export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<AuthGuard><Home /></AuthGuard>} />
         <Route path="/login" element={<Login />} />
         {/* user links */}
         <Route path="/user" >
-          <Route index path="" element={<UserHome />} />
-          <Route path="profile" element={<UserProfile />} />
+          <Route index path="" element={<AuthGuard><UserHome /></AuthGuard>} />
+          <Route path="profile" element={<AuthGuard><UserProfile /></AuthGuard>} />
         </Route>
         {/* admin links */}
-        <Route path="/admin" element={<AdminIndex />} >
-          <Route index element={<AdminHome />} />
-          <Route path="profile" element={<AdminProfile />} />
-          <Route path="users" element={<AdminUsers />} />
-          <Route path="reclamations" element={<AdminReclamations />} />
-          <Route path="reclamationTypes" element={<AdminTypes />} />
-          <Route path="roles" element={<AdminRoles />} />
-          <Route path="accessFlows" element={<AdminAccessFlows />} />
-          <Route path="calendar" element={<Calendar />} />
+        <Route path="/admin" element={<AuthGuard><AdminIndex /></AuthGuard>} >
+          <Route index element={<AuthGuard><AdminHome /></AuthGuard>} />
+          <Route path="profile" element={<AuthGuard><AdminProfile /></AuthGuard>} />
+          <Route path="users" element={<AuthGuard><AdminUsers /></AuthGuard>} />
+          <Route path="reclamations" element={<AuthGuard><AdminReclamations /></AuthGuard>} />
+          <Route path="reclamationTypes" element={<AuthGuard><AdminTypes /></AuthGuard>} />
+          <Route path="roles" element={<AuthGuard><AdminRoles /></AuthGuard>} />
+          <Route path="accessFlows" element={<AuthGuard><AdminAccessFlows /></AuthGuard>} />
+          <Route path="calendar" element={<AuthGuard><Calendar /></AuthGuard>} />
           <Route path="*" element={<h1>404</h1>} />
         </Route>
       </Routes>

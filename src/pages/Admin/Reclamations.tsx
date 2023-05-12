@@ -24,7 +24,6 @@ const Reclamations = () => {
 
   const allReclamations = data;
   const [currentReclamation, setCurrentReclamation] = useState<Reclamation | null>(null);
-  console.log(allReclamations)
 
   const addNewReclam = useDisclosure();
   const updateReclam = useDisclosure();
@@ -49,7 +48,7 @@ const Reclamations = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {isLoading ? (
+            {isLoading ?
               <>
                 <Td>
                   <Skeleton height="20px" mb="2" />
@@ -67,22 +66,22 @@ const Reclamations = () => {
                   <Skeleton height="20px" mb="2" />
                 </Td>
               </>
-            ) : (allReclamations?.map((reclamation: Reclamation) => (
-              <Tr key={reclamation.id}>
-                <Td textAlign={"center"}>{reclamation.subject}</Td>
-                <Td textAlign={"center"}>{reclamation.author.firstName} {reclamation.author.lastName}</Td>
-                <Td textAlign={"center"}>{reclamation.progress}</Td>
-                <Td textAlign={"center"}>{reclamation.type.typeName}</Td>
-                <Td textAlign={"center"}>
-                  <Button variant={"outline"} colorScheme="blue" size="sm" mr="2"
-                    onClick={() => {
-                      setCurrentReclamation(reclamation);
-                      console.log("clicked from view reclam")
-                    }}>View</Button>
-                  <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
-                </Td>
-              </Tr>)
-            ))}
+              : isSuccess && allReclamations?.map((reclamation: Reclamation) => (
+                <Tr key={reclamation.id}>
+                  <Td textAlign={"center"}>{reclamation.subject}</Td>
+                  <Td textAlign={"center"}>{reclamation.author.firstName} {reclamation.author.lastName}</Td>
+                  <Td textAlign={"center"}>{reclamation.progress}</Td>
+                  <Td textAlign={"center"}>{reclamation.type.typeName}</Td>
+                  <Td textAlign={"center"}>
+                    <Button variant={"outline"} colorScheme="blue" size="sm" mr="2"
+                      onClick={() => {
+                        setCurrentReclamation(reclamation);
+                        console.log("clicked from view reclam")
+                      }}>View</Button>
+                    <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
+                  </Td>
+                </Tr>)
+              )}
           </Tbody>
         </Table>
       </TableContainer>

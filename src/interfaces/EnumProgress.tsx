@@ -3,6 +3,7 @@ enum Progress {
   processing = "processing",
   done = "done",
   validated = "validated",
+  canceled = "canceled"
 }
 
 export default Progress;

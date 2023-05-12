@@ -117,7 +117,6 @@ function AddUser({ isOpen, onClose }: AddUserProps) {
                   id="roleId"
                   className="form-select"
                   placeholder='Select Role'
-                  defaultValue="melek"
                 >
                   {roles?.map((role: Role) => (
                     <option key={role.id} value={role.id}>

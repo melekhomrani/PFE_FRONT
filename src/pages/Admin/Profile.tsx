@@ -1,23 +1,15 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
+import { FaSpinner } from "react-icons/fa";
 import ProfileComponent from "../../components/Profile";
 import useMe from "../../hooks/useMe";
 import User from "../../interfaces/User";
 
 const AdminProfile = () => {
-  let userData: User = {
-    id: 1,
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@gmail.com",
-    role: {
-      id: 1,
-      name: "Admin",
-    }
-  }
   const { isLoading: isLoadingUser, data: user } = useMe();
-  console.log(user);
+  !isLoadingUser && console.log(user);
   return (
     <>
+      {isLoadingUser && <Flex minH="100vh" justify={"center"} align="center"><FaSpinner rotate={190} /></Flex>}
       {
         user && <ProfileComponent user={user} isLoading={isLoadingUser} />
       }
