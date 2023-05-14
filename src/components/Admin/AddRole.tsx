@@ -46,12 +46,13 @@ function AddRole({ isOpen, onClose }: AddRoleProps) {
         })
       }
       onClose();
-    } catch (error) {
+    } catch (error: any) {
+      console.log()
       if (!toast.isActive("roleNotCreated")) {
         toast({
           id: "roleNotCreated",
           title: "Error.",
-          description: "Unable to create role.",
+          description: error.response.data.message,
           status: "error",
           duration: 2500,
           isClosable: true,

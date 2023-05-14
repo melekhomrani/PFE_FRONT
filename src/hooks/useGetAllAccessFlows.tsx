@@ -10,7 +10,7 @@ const getAllAceessFlows = async () => {
 
 const useGetAllAccessFlows = () => {
   return useQuery({
-    queryKey: ["allAccessFlows"],
+    queryKey: ["accessFlows"],
     queryFn: () => getAllAceessFlows(),
   });
 }

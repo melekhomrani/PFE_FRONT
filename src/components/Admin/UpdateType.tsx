@@ -47,7 +47,6 @@ function UpdateType({ typeData, onClose }: UpdateTypeProps) {
   const [approve, setApprove] = useState<Array<number>>([]);
   const [validate, setvalidate] = useState<Array<number>>([]);
 
-  // role exists in array of roles
   const roleExists = (role: Role, roles: Role[]) => {
     return roles.some((item) => item.id === role.id);
   }
@@ -112,7 +111,7 @@ function UpdateType({ typeData, onClose }: UpdateTypeProps) {
       <Modal isOpen={true} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add New Role</ModalHeader>
+          <ModalHeader>Update Type</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <form
@@ -124,120 +123,6 @@ function UpdateType({ typeData, onClose }: UpdateTypeProps) {
               <FormControl isRequired>
                 <FormLabel>Type name: </FormLabel>
                 <Input autoFocus type="text" defaultValue={typeData.typeName} id="name" name="typeName" />
-              </FormControl>
-              <FormControl>
-                <Accordion>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <FormLabel>Roles can create: </FormLabel>
-                      <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel>
-                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
-                        {isLoadingAccessFlow && isLoadingRoles ? <SkeletonText /> :
-                          isSuccessAccessFlow && roles.map((role: any) => (
-                            <Checkbox
-                              key={role.id}
-                              value={role.id}
-                              onChange={(e) => handleCheck(e, setCreate)}
-                              defaultChecked={
-                                roleExists(role, accessFlow.create)
-                              }
-                            >{role.name}</Checkbox>
-                          ))
-                        }
-                      </Flex>
-                    </AccordionPanel>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <FormLabel>Roles can consult: </FormLabel>
-                      <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel>
-                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
-                        {isLoadingAccessFlow && isLoadingRoles ? <SkeletonText /> :
-                          isSuccessAccessFlow && roles.map((role: any) => (
-                            <Checkbox
-                              key={role.id}
-                              value={role.id}
-                              onChange={(e) => handleCheck(e, setConsult)}
-                              defaultChecked={
-                                roleExists(role, accessFlow.consult)
-                              }
-                            >{role.name}</Checkbox>
-                          ))
-                        }
-                      </Flex>
-                    </AccordionPanel>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <FormLabel>Roles will be notified: </FormLabel>
-                      <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel>
-                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
-                        {isLoadingAccessFlow && isLoadingRoles ? <SkeletonText /> :
-                          isSuccessAccessFlow && roles.map((role: any) => (
-                            <Checkbox
-                              key={role.id}
-                              value={role.id}
-                              onChange={(e) => handleCheck(e, setNotify)}
-                              defaultChecked={
-                                roleExists(role, accessFlow.notify)
-                              }
-                            >{role.name}</Checkbox>
-                          ))
-                        }
-                      </Flex>
-                    </AccordionPanel>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <FormLabel>Roles can approve: </FormLabel>
-                      <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel>
-                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
-                        {isLoadingAccessFlow && isLoadingRoles ? <SkeletonText /> :
-                          isSuccessAccessFlow && roles.map((role: any) => (
-                            <Checkbox
-                              key={role.id}
-                              value={role.id}
-                              onChange={(e) => handleCheck(e, setApprove)}
-                              defaultChecked={
-                                roleExists(role, accessFlow.approve)
-                              }
-                            >{role.name}</Checkbox>
-                          ))
-                        }
-                      </Flex>
-                    </AccordionPanel>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
-                      <FormLabel>Roles can validate: </FormLabel>
-                      <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel>
-                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
-                        {isLoadingAccessFlow && isLoadingRoles ? <SkeletonText /> :
-                          isSuccessAccessFlow && roles.map((role: any) => (
-                            <Checkbox
-                              key={role.id}
-                              value={role.id}
-                              onChange={(e) => handleCheck(e, setvalidate)}
-                              defaultChecked={
-                                roleExists(role, accessFlow.validate)
-                              }
-                            >{role.name}</Checkbox>
-                          ))
-                        }
-                      </Flex>
-                    </AccordionPanel>
-                  </AccordionItem>
-                </Accordion>
               </FormControl>
             </form>
           </ModalBody>

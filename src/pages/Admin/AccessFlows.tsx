@@ -19,6 +19,7 @@ import { AiFillPlusSquare } from 'react-icons/ai';
 import useGetAllAccessFlows from '../../hooks/useGetAllAccessFlows';
 
 import AccessFlow from '../../interfaces/AccessFlow';
+import UpdateAccessFlow from '../../components/Admin/UpdateAccessFlow';
 
 
 // const countRoles = (accessFlow: AccessFlow) => {
@@ -39,6 +40,12 @@ import AccessFlow from '../../interfaces/AccessFlow';
 
 const AdminAccessFlows = () => {
   const { isLoading, isSuccess, data: accessFlows } = useGetAllAccessFlows();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [accessFlowToUpdate, setAccessFlowToUpdate] = useState<AccessFlow | null>(null);
+  const [accessFlowToDelete, setAccessFlowToDelete] = useState<AccessFlow | null>(null);
+
+  // const counts = countRoles(accessFlowToUpdate);
+
   return (
     <Box>
       <Box>
@@ -98,10 +105,10 @@ const AdminAccessFlows = () => {
                       <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
                       <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
                       <Td textAlign={"center"}>
-                        <Button variant={"outline"} colorScheme="blue" mr={3}>
+                        <Button variant={"outline"} onClick={() => setAccessFlowToUpdate(accessFlow)} colorScheme="blue" mr={3}>
                           Edit
                         </Button>
-                        <Button variant={"outline"} colorScheme="red">
+                        <Button variant={"outline"} onClick={() => setAccessFlowToDelete(accessFlow)} colorScheme="red">
                           Delete
                         </Button>
                       </Td>
@@ -112,6 +119,9 @@ const AdminAccessFlows = () => {
             </Tbody>
           </Table>
         </TableContainer>
+        {
+          accessFlowToUpdate && <UpdateAccessFlow accessFlowData={accessFlowToUpdate} onClose={() => { onClose; setAccessFlowToUpdate(null) }} />
+        }
       </Box>
     </Box>
   )

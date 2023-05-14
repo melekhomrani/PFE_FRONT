@@ -70,7 +70,6 @@ function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
         <ModalContent>
           <ModalHeader>Update Role</ModalHeader>
           <ModalCloseButton />
-
           <ModalBody>
             <form
               id="UpdateRoleForm"
@@ -84,7 +83,6 @@ function UpdateRole({ roleData, onClose }: UpdateRoleProps) {
               </FormControl>
             </form>
           </ModalBody>
-
           <ModalFooter>
             <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button>
             <Box w="2" />
