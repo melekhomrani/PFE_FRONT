@@ -119,7 +119,7 @@ function AddType({ isOpen, onClose }: AddTypeProps) {
                 <Input autoFocus type="text" id="name" name="typeName" />
               </FormControl>
               <FormControl>
-                <Accordion>
+                <Accordion allowToggle>
                   <AccordionItem>
                     <AccordionButton>
                       <FormLabel>Roles can create: </FormLabel>

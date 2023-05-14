@@ -51,18 +51,18 @@ const AdminAccessFlows = () => {
       <Box>
         <Flex mb={"55"} justifyContent={"space-between"} alignItems={"center"} >
           <Heading>Access Flows</Heading>
-          <Button leftIcon={<AiFillPlusSquare />} >Add Access Flow</Button>
+          {/* <Button leftIcon={<AiFillPlusSquare />} >Add Access Flow</Button> */}
 
         </Flex>
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
           <Table size={'md'} variant={"simple"}>
             <Thead>
               <Tr>
-                <Th textAlign={"center"} isNumeric>Id</Th>
+                {/* <Th textAlign={"center"} isNumeric>Id</Th> */}
                 <Th textAlign={"center"}>Type name</Th>
-                <Th textAlign={"center"}>Approvers</Th>
-                <Th textAlign={"center"}>Consultors</Th>
                 <Th textAlign={"center"}>Creators</Th>
+                <Th textAlign={"center"}>Consultors</Th>
+                <Th textAlign={"center"}>Approvers</Th>
                 <Th textAlign={"center"}>Notified</Th>
                 <Th textAlign={"center"}>Validators</Th>
                 <Th textAlign={"center"}>Actions</Th>
@@ -97,19 +97,16 @@ const AdminAccessFlows = () => {
                 ) : (
                   isSuccess && accessFlows.map((accessFlow: AccessFlow) => (
                     <Tr key={accessFlow.id}>
-                      <Td textAlign={"center"}>{accessFlow.id}</Td>
+                      {/* <Td textAlign={"center"}>{accessFlow.id}</Td> */}
                       <Td textAlign={"center"}>{accessFlow.reclamationType.typeName}</Td>
-                      <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
-                      <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
                       <Td textAlign={"center"}>{accessFlow.create.length}</Td>
+                      <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
+                      <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
                       <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
                       <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
                       <Td textAlign={"center"}>
                         <Button variant={"outline"} onClick={() => setAccessFlowToUpdate(accessFlow)} colorScheme="blue" mr={3}>
                           Edit
-                        </Button>
-                        <Button variant={"outline"} onClick={() => setAccessFlowToDelete(accessFlow)} colorScheme="red">
-                          Delete
                         </Button>
                       </Td>
                     </Tr>

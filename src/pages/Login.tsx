@@ -52,7 +52,7 @@ function Login() {
                 <Input type="password" name="password" placeholder="Mot de passe" required />
                 <FormErrorMessage>Email and/or password incorrect</FormErrorMessage>
               </FormControl>
-              <Button type="submit" colorScheme="red" disabled={!isLoading ? false : true}>{!isLoading ? "Se connecter" : <Spinner color="white" />}</Button>
+              <Button type="submit" colorScheme="red" isDisabled={!isLoading ? false : true}>{!isLoading ? "Se connecter" : <Spinner color="white" />}</Button>
             </VStack>
             <Link to="#"><Text fontSize="sm">Forget Password?</Text></Link>
           </VStack>

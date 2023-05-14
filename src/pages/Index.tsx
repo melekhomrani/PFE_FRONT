@@ -20,12 +20,22 @@ function Home() {
           <Text fontSize="xl" mb="12" textAlign="center" color="black">
             Our Reclamation Management System helps you streamline the complaint management process and improve customer satisfaction. With our easy-to-use platform, you can manage customer complaints or requests for compensation, assign them to the appropriate teams or individuals, and track their progress.
           </Text>
-          <Flex justify="center">
-            <MyLink to={!userRole ? "/user" : "/admin"}>
-              <Button colorScheme={"red"} color="white" size="lg" px="8">
-                Get Started
-              </Button>
-            </MyLink>
+          <Flex justify={"center"}>
+            <Flex justify="center" direction={"column"} gap="3">
+              <MyLink to="/reclamer" >
+                <Button colorScheme={"red"} color="white" size="lg" px="8">
+                  Get Started
+                </Button>
+              </MyLink>
+              {
+                adminRole === "admin" &&
+                <MyLink to="/admin">
+                  <Button colorScheme={"red"} color="white" size="lg" px="8">
+                    Dashboard
+                  </Button>
+                </MyLink>
+              }
+            </Flex>
           </Flex>
         </Box>
       </Flex>

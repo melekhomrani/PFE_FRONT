@@ -20,7 +20,12 @@ import ReviewReclamation from '../../components/Admin/Reclamation';
 
 
 const Reclamations = () => {
-  const { isLoading, isSuccess, data, } = useGetAllReclamations();
+  const { isLoading, isSuccess, data } = useGetAllReclamations();
+
+  // sort by date 
+  data?.sort((a: Reclamation, b: Reclamation) => {
+    return new Date(b.dateCreation).getTime() - new Date(a.dateCreation).getTime();
+  });
 
   const allReclamations = data;
   const [currentReclamation, setCurrentReclamation] = useState<Reclamation | null>(null);

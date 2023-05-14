@@ -51,7 +51,7 @@ const Roles = () => {
           <Table size={'md'} variant={"simple"}>
             <Thead>
               <Tr>
-                <Th textAlign={"center"} isNumeric>Id</Th>
+                {/* <Th textAlign={"center"} isNumeric>Id</Th> */}
                 <Th textAlign={"center"}>Name</Th>
                 <Th textAlign={"center"}>Actions</Th>
               </Tr>
@@ -72,7 +72,7 @@ const Roles = () => {
               ) : (
                 roles?.map((role: Role) => (
                   <Tr key={role.id}>
-                    <Td textAlign={"center"} isNumeric>{role.id}</Td>
+                    {/* <Td textAlign={"center"} isNumeric>{role.id}</Td> */}
                     <Td textAlign={"center"}>{role.name}</Td>
                     <Td textAlign={"center"}>
                       <Button onClick={() => {

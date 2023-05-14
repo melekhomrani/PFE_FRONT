@@ -20,8 +20,10 @@ import {
   Checkbox,
   SkeletonText,
   Box,
+  Text,
 } from "@chakra-ui/react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { Link } from "react-router-dom";
 import useGetAccessFlow from "../../hooks/useGetAccessFlow";
 import useGetAllRoles from "../../hooks/useGetAllRoles";
 import useUpdateType, { UpdateType } from "../../hooks/useUpdateType";
@@ -37,7 +39,6 @@ function UpdateType({ typeData, onClose }: UpdateTypeProps) {
 
   const { isLoading: isLoadingRoles, data: roles } = useGetAllRoles();
   const { isLoading: isLoadingAccessFlow, isSuccess: isSuccessAccessFlow, data: accessFlow } = useGetAccessFlow(typeData.id);
-  !isLoadingAccessFlow && console.log(accessFlow.notify)
   const toast = useToast();
   const mutation = useUpdateType();
 
@@ -50,12 +51,12 @@ function UpdateType({ typeData, onClose }: UpdateTypeProps) {
   const roleExists = (role: Role, roles: Role[]) => {
     return roles.some((item) => item.id === role.id);
   }
-  const disabledBtn = () => {
-    if (create.length === 0 || consult.length === 0 || notify.length === 0 || approve.length === 0 || validate.length === 0) {
-      return true;
-    }
-    return false;
-  }
+  // const disabledBtn = () => {
+  //   if (create.length === 0 || consult.length === 0 || notify.length === 0 || approve.length === 0 || validate.length === 0) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -124,12 +125,156 @@ function UpdateType({ typeData, onClose }: UpdateTypeProps) {
                 <FormLabel>Type name: </FormLabel>
                 <Input autoFocus type="text" defaultValue={typeData.typeName} id="name" name="typeName" />
               </FormControl>
+              <FormControl>
+                <Accordion allowToggle>
+                  <AccordionItem>
+                    <AccordionButton>
+                      <FormLabel>Roles can create: </FormLabel>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
+                        {isLoadingRoles ? <SkeletonText /> :
+                          isSuccessAccessFlow && roles.map((role: any) => (
+                            <Checkbox
+                              isDisabled={true}
+                              key={role.id}
+                              value={role.id}
+                              defaultChecked={
+                                roleExists(role, accessFlow.create)
+                              }
+                            >{role.name}</Checkbox>
+                          ))
+                        }
+                      </Flex>
+                      <Text color={"blue"} opacity="0.5" ps="2" mt="2" >
+                        Please edit access flow in &nbsp;
+                        <Link style={{ textDecoration: "underline" }} to="/admin/accessFlows">access flow</Link>
+                        &nbsp;
+                        section
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                  <AccordionItem>
+                    <AccordionButton>
+                      <FormLabel>Roles can consult: </FormLabel>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
+                        {isLoadingRoles ? <SkeletonText /> :
+                          isSuccessAccessFlow && roles.map((role: any) => (
+                            <Checkbox
+                              isDisabled={true}
+                              key={role.id}
+                              value={role.id}
+                              defaultChecked={
+                                roleExists(role, accessFlow.consult)
+                              }
+                            >{role.name}</Checkbox>
+                          ))
+                        }
+                      </Flex>
+                      <Text color={"blue"} opacity="0.5" ps="2" mt="2" >
+                        Please edit access flow in &nbsp;
+                        <Link style={{ textDecoration: "underline" }} to="/admin/accessFlows">access flow</Link>
+                        &nbsp;
+                        section
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                  <AccordionItem>
+                    <AccordionButton>
+                      <FormLabel>Roles will be notified: </FormLabel>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
+                        {isLoadingRoles ? <SkeletonText /> :
+                          isSuccessAccessFlow && roles.map((role: any) => (
+                            <Checkbox
+                              isDisabled={true}
+                              key={role.id}
+                              value={role.id}
+                              defaultChecked={
+                                roleExists(role, accessFlow.notify)
+                              }
+                            >{role.name}</Checkbox>
+                          ))
+                        }
+                      </Flex>
+                      <Text color={"blue"} opacity="0.5" ps="2" mt="2" >
+                        Please edit access flow in &nbsp;
+                        <Link style={{ textDecoration: "underline" }} to="/admin/accessFlows">access flow</Link>
+                        &nbsp;
+                        section
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                  <AccordionItem>
+                    <AccordionButton>
+                      <FormLabel>Roles can approve: </FormLabel>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
+                        {isLoadingRoles ? <SkeletonText /> :
+                          isSuccessAccessFlow && roles.map((role: any) => (
+                            <Checkbox
+                              isDisabled={true}
+                              key={role.id}
+                              value={role.id}
+                              defaultChecked={
+                                roleExists(role, accessFlow.approve)
+                              }
+                            >{role.name}</Checkbox>
+                          ))
+                        }
+                      </Flex>
+                      <Text color={"blue"} opacity="0.5" ps="2" mt="2" >
+                        Please edit access flow in &nbsp;
+                        <Link style={{ textDecoration: "underline" }} to="/admin/accessFlows">access flow</Link>
+                        &nbsp;
+                        section
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                  <AccordionItem>
+                    <AccordionButton>
+                      <FormLabel>Roles can validate: </FormLabel>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
+                        {isLoadingRoles ? <SkeletonText /> :
+                          isSuccessAccessFlow && roles.map((role: any) => (
+                            <Checkbox
+                              isDisabled={true}
+                              key={role.id}
+                              value={role.id}
+                              defaultChecked={
+                                roleExists(role, accessFlow.validate)
+                              }
+                            >{role.name}</Checkbox>
+                          ))
+                        }
+                      </Flex>
+                      <Text color={"blue"} opacity="0.5" ps="2" mt="2" >
+                        Please edit access flow in &nbsp;
+                        <Link style={{ textDecoration: "underline" }} to="/admin/accessFlows">access flow</Link>
+                        &nbsp;
+                        section
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                </Accordion>
+              </FormControl>
             </form>
           </ModalBody>
           <ModalFooter>
             <Button variant={"outline"} colorScheme="red" onClick={onClose}>Cancel</Button >
             <Box w="2" />
-            <Button disabled={disabledBtn()} colorScheme="blue" type="submit" form="updateTypeForm" isLoading={mutation.isLoading}>
+            <Button colorScheme="blue" type="submit" form="updateTypeForm" isLoading={mutation.isLoading}>
               Submit
             </Button>
           </ModalFooter>

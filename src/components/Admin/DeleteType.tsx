@@ -28,23 +28,23 @@ function DeleteType({ onClose, typeData }: DeleteTypeProps) {
   const handleDelete = async () => {
     try {
       await mutation.mutateAsync(typeData.id);
-      if (!toast.isActive("userDeleted")) {
+      if (!toast.isActive("typeDeleted")) {
         toast({
-          id: "userDeleted",
-          title: "User Deleted.",
-          description: "User has been deleted successfully",
+          id: "typeDeleted",
+          title: "Type deleted.",
+          description: "Type has been deleted successfully",
           status: "success",
           duration: 2500,
           isClosable: true,
         })
       }
       onClose();
-    } catch (error) {
-      if (!toast.isActive("userNotDeleted")) {
+    } catch (error: any) {
+      if (!toast.isActive("typeNotDeleted")) {
         toast({
-          id: "userNotDeleted",
+          id: "typeNotDeleted",
           title: "Error.",
-          description: "Unable to delete user.",
+          description: "Unable to delete type.",
           status: "error",
           duration: 2500,
           isClosable: true,

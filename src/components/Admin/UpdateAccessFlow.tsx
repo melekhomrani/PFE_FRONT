@@ -31,6 +31,8 @@ import Role from "../../interfaces/Role";
 import Type from "../../interfaces/Type";
 import AccessFlowData from "../../interfaces/AccessFlow";
 
+// FIXME: remove items when uncheck
+
 interface UpdateAccessFlowProps {
   accessFlowData: AccessFlowData;
   onClose: () => void;
@@ -44,11 +46,11 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
   const toast = useToast();
   const mutation = useUpdateAccessFlow();
 
-  const [create, setCreate] = useState<Array<number>>([]);
-  const [consult, setConsult] = useState<Array<number>>([]);
-  const [notify, setNotify] = useState<Array<number>>([]);
-  const [approve, setApprove] = useState<Array<number>>([]);
-  const [validate, setvalidate] = useState<Array<number>>([]);
+  const [create, setCreate] = useState<Array<number>>(accessFlowData.create.map((item) => item.id));
+  const [consult, setConsult] = useState<Array<number>>(accessFlowData.consult.map((item) => item.id));
+  const [notify, setNotify] = useState<Array<number>>(accessFlowData.notify.map((item) => item.id));
+  const [approve, setApprove] = useState<Array<number>>(accessFlowData.approve.map((item) => item.id));
+  const [validate, setvalidate] = useState<Array<number>>(accessFlowData.validate.map((item) => item.id));
 
   const roleExists = (role: Role, roles: Role[]) => {
     return roles.some((item) => item.id === role.id);
@@ -73,7 +75,7 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
     }
     const accessFlowId = accessFlowData.id;
     try {
-      await mutation.mutateAsync({ accessFlowId, accessFlow });
+      // await mutation.mutateAsync({ accessFlowId, accessFlow });
       if (!toast.isActive("accessFlowUpdated")) {
         toast({
           id: "accessFlowUpdated",
@@ -101,6 +103,7 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
   };
 
   const handleCheck = (e: any, setState: Dispatch<SetStateAction<number[]>>) => {
+    console.log(create.map((item) => typeof item))
     if (e.target.checked) {
       setState((prev) => [...prev, e.target.value]);
     }
@@ -133,12 +136,8 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
                 handleSubmit(event)
               }}
             >
-              {/* <FormControl isRequired> */}
-              {/* <FormLabel>Type name: </FormLabel> */}
-              {/* text */}
-              {/* </FormControl> */}
               <FormControl>
-                <Accordion>
+                <Accordion allowToggle>
                   <AccordionItem>
                     <AccordionButton>
                       <FormLabel>Roles can create: </FormLabel>
@@ -185,28 +184,6 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
                   </AccordionItem>
                   <AccordionItem>
                     <AccordionButton>
-                      <FormLabel>Roles will be notified: </FormLabel>
-                      <AccordionIcon />
-                    </AccordionButton>
-                    <AccordionPanel>
-                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
-                        {isLoadingRoles ? <SkeletonText /> :
-                          roles.map((role: any) => (
-                            <Checkbox
-                              key={role.id}
-                              value={role.id}
-                              onChange={(e) => handleCheck(e, setNotify)}
-                              defaultChecked={
-                                roleExists(role, accessFlowData.notify)
-                              }
-                            >{role.name}</Checkbox>
-                          ))
-                        }
-                      </Flex>
-                    </AccordionPanel>
-                  </AccordionItem>
-                  <AccordionItem>
-                    <AccordionButton>
                       <FormLabel>Roles can approve: </FormLabel>
                       <AccordionIcon />
                     </AccordionButton>
@@ -220,6 +197,28 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
                               onChange={(e) => handleCheck(e, setApprove)}
                               defaultChecked={
                                 roleExists(role, accessFlowData.approve)
+                              }
+                            >{role.name}</Checkbox>
+                          ))
+                        }
+                      </Flex>
+                    </AccordionPanel>
+                  </AccordionItem>
+                  <AccordionItem>
+                    <AccordionButton>
+                      <FormLabel>Roles will be notified: </FormLabel>
+                      <AccordionIcon />
+                    </AccordionButton>
+                    <AccordionPanel>
+                      <Flex gap={"10px"} wrap="wrap" direction={"row"} justify="space-evenly" align="center">
+                        {isLoadingRoles ? <SkeletonText /> :
+                          roles.map((role: any) => (
+                            <Checkbox
+                              key={role.id}
+                              value={role.id}
+                              onChange={(e) => handleCheck(e, setNotify)}
+                              defaultChecked={
+                                roleExists(role, accessFlowData.notify)
                               }
                             >{role.name}</Checkbox>
                           ))

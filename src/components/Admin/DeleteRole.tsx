@@ -32,7 +32,7 @@ function DeleteRole({ onClose, role }: DeleteRoleProps) {
         toast({
           id: "roleNotDeleted",
           title: "Error.",
-          description: error.response.data.message,
+          description: "Unable to delete role.",
           status: "error",
           duration: 2500,
           isClosable: true,

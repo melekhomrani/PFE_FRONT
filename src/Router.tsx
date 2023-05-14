@@ -15,6 +15,7 @@ import UserHome from "./pages/User/Home";
 import UserProfile from "./pages/User/Profile";
 import AdminAccessFlows from "./pages/Admin/AccessFlows";
 import AuthGuard from "./components/AuthGuard";
+import Reclamer from "./pages/Reclamer";
 
 export default function Router() {
   return (
@@ -22,6 +23,7 @@ export default function Router() {
       <Routes>
         <Route path="/" element={<AuthGuard><Home /></AuthGuard>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/reclamer" element={<AuthGuard><Reclamer /></AuthGuard>} />
         {/* user links */}
         <Route path="/user" >
           <Route index path="" element={<AuthGuard><UserHome /></AuthGuard>} />

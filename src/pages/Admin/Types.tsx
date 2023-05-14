@@ -25,9 +25,7 @@ import DeleteType from '../../components/Admin/DeleteType';
 
 
 const Types = () => {
-  //FIXME: add type
-  //TODO: edit type
-  //TODO: delete type
+  // TODO: all done for types
 
 
   const { isLoading: isLoadingType, data: type } = useGetAllAccessFlows();

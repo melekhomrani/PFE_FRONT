@@ -12,7 +12,7 @@ function Header() {
   const [role, setRole] = useState("faza okhra")
   const isAdmin = role === "admin"
   return (
-    <Flex bg={colors.headerBG} py="8" align={"center"} justify="space-between" px="8" h="13vh">
+    <Flex bg={colors.headerBG} py="8" align={"center"} justify="space-between" px="8" h="12vh" mb="1vh">
       <MyLink to={"/"}>
         <Box maxW="container.sm">
           <Image src={Logo} alt="Esprit Logo" maxW="150px" />
