@@ -3,9 +3,11 @@ import React from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import MyLink from '../components/MyLink'
+import useIsAdmin from '../hooks/useIsAdmin'
 
 function Home() {
   //TODO: get user role from context
+  const { isSuccess, isLoading, data: isAdmin } = useIsAdmin()
   const adminRole = "admin"
   const userRole = "user"
 
@@ -21,14 +23,14 @@ function Home() {
             Our Reclamation Management System helps you streamline the complaint management process and improve customer satisfaction. With our easy-to-use platform, you can manage customer complaints or requests for compensation, assign them to the appropriate teams or individuals, and track their progress.
           </Text>
           <Flex justify={"center"}>
-            <Flex justify="center" direction={"column"} gap="3">
+            <Flex justify="center" gap="5">
               <MyLink to="/reclamer" >
                 <Button colorScheme={"red"} color="white" size="lg" px="8">
                   Get Started
                 </Button>
               </MyLink>
               {
-                adminRole === "admin" &&
+                !isLoading && isSuccess && isAdmin &&
                 <MyLink to="/admin">
                   <Button colorScheme={"red"} color="white" size="lg" px="8">
                     Dashboard

@@ -1,16 +1,72 @@
-import { Box, Button, Flex, Image } from '@chakra-ui/react'
 import { useState } from 'react'
 import Logo from "../assets/logoRec.png";
-import { BiUserCircle } from "react-icons/bi";
+import { BiLogOutCircle, BiUserCircle } from "react-icons/bi";
 import MyLink from './MyLink';
 import { colors } from '../constants'
+import useMe from '../hooks/useMe';
+import useIsAdmin from '../hooks/useIsAdmin';
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
+import { Link, useLocation } from 'react-router-dom';
+import { AiOutlineSetting } from 'react-icons/ai';
+
+const DropDownMenu = (user: any) => {
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
+  const name = `${user?.user?.firstName} ${user?.user?.lastName}`
+
+  const [isOpen, setIsOpen] = useState(false);
+  console.log(user)
+  return (
+    <Box>
+      <Menu isLazy>
+        <MenuButton
+          as={Button}
+          bg="transparent"
+          _hover={{ bg: "transparent" }}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {user && <Avatar size="sm" bgColor={"red"} name={name} />}
+          {!user && "username"}
+        </MenuButton>
+        <MenuList>
+          <Link to="/user/profile">
+            <MenuItem gap={2}>
+              <BiUserCircle color='red' size={20} />
+              Profile
+            </MenuItem>
+          </Link>
+          <MenuItem gap={2}>
+            <AiOutlineSetting color='red' size={20} />
+            Settings
+          </MenuItem>
+          <MenuItem gap={2} onClick={() => handleLogout()}>
+            <BiLogOutCircle color='red' size={20} />
+            Logout
+          </MenuItem>
+        </MenuList>
+      </Menu>
+    </Box >
+  );
+};
 
 function Header() {
-  //TODO: get user from context
-  const user = true
-  // TODO: get user role from context
-  const [role, setRole] = useState("faza okhra")
-  const isAdmin = role === "admin"
+  const location = useLocation();
+  const isLoginPage = location.pathname === '/login';
+  const { isLoading, data: user } = useMe()
+  const { data: isAdmin } = useIsAdmin()
   return (
     <Flex bg={colors.headerBG} py="8" align={"center"} justify="space-between" px="8" h="12vh" mb="1vh">
       <MyLink to={"/"}>
@@ -18,11 +74,7 @@ function Header() {
           <Image src={Logo} alt="Esprit Logo" maxW="150px" />
         </Box>
       </MyLink>
-      <MyLink to={isAdmin ? "/admin/profile" : "/user/profile"}>
-        <Button fontSize="md" color={!user ? "white" : "red"} colorScheme={user ? "white" : "red"}>
-          {user ? <BiUserCircle size={28} /> : "login"}
-        </Button>
-      </MyLink>
+      {!isLoading && <DropDownMenu user={user} />}
     </Flex>
   )
 }

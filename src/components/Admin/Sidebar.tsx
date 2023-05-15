@@ -1,8 +1,8 @@
 import Logo from "../../assets/logoRec.png";
 import { Menu, Sidebar, useProSidebar } from "react-pro-sidebar"
 import { Box, Image, Text, Button, Center, Flex } from "@chakra-ui/react"
-import { useNavigate } from "react-router-dom";
-import { AiOutlineFileAdd, AiOutlineUsergroupAdd } from "react-icons/ai"
+import { Link, useNavigate } from "react-router-dom";
+import { AiOutlineFileAdd, AiOutlineHome, AiOutlineUsergroupAdd } from "react-icons/ai"
 import { RiDashboardFill } from "react-icons/ri"
 import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import { BsCalendar4Week } from "react-icons/bs"
@@ -25,7 +25,10 @@ const MySidebar = () => {
     <Box as="main" minH={"100vh"} background={"red"} transitionDuration={"1750"} zIndex="10000">
       <Sidebar style={{ height: "100vh", padding: 0 }}>
         <Box background={"red"} height={"100vh"} >
-          <Flex h={"100%"} justify="space-around" direction="column">
+          <Flex h={"100%"} justify="space-around" direction="column" >
+            <Flex as={Link} justify={collapsed ? "center" : "start"} to={"/"} mb={collapsed ? "-30px" : "-20px"} ps="2">
+              <AiOutlineHome size={collapsed ? 20 : 26} color="white" />
+            </Flex>
             <Flex
               cursor={"pointer"}
               ps="20px"
@@ -106,8 +109,8 @@ const MySidebar = () => {
             </Box>
           </Flex>
         </Box>
-      </Sidebar>
-    </Box>
+      </Sidebar >
+    </Box >
   );
 };
 

@@ -39,7 +39,6 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
     try {
       console.log("Params", Params)
       await mutation.mutateAsync(Params);
-      // get the message from the server
       const message = mutation.data;
       console.log("message", message)
       if (!toast.isActive("updatePasswordSuccess")) {
@@ -66,7 +65,7 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
   }
 
   return (
-    <Box bg="white" p="8">
+    <Box bg="white" >
       <Box
         display={{ base: "block", md: "flex" }}
         justifyContent={"space-between"}
@@ -74,7 +73,7 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
         bgColor={"green"} bg="#f5f8f9" p="8" borderRadius="md"
         boxShadow="md" border={"1px"} borderColor="gray.300"
       >
-        <Box flex="1" maxW="xl" mx={{ base: "auto", lg: "5" }} mb={8}>
+        <Box p="8" h="100%" mt="-40px" flex={1} maxW="xl" mx={{ base: "auto", lg: "5" }} mb={8}>
           <Text fontSize="2xl" fontWeight="bold" mb={2}>
             Personal Information
           </Text>
@@ -103,7 +102,7 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
             </VStack>
           </SkeletonText>
         </Box>
-        <Box flex="1" maxW="xl" mx={{ base: "auto", lg: "5" }}>
+        <Box p="8" flex={1} maxW="xl" mx={{ base: "auto", lg: "5" }}>
           <Text fontSize="2xl" fontWeight="bold" mb={2}>
             Change Password
           </Text>

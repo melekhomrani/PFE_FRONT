@@ -8,21 +8,12 @@ import User from "../../interfaces/User";
 const UserProfile = () => {
   const { isLoading, data: user } = useMe()
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.href = "/";
-  };
+
   return (
     user &&
     <>
       <Header />
-
-      <Box minH="77vh">
-        <Flex justify={"end"} pr="10">
-          <Button onClick={() => handleLogout()} colorScheme="red" >
-            Log out
-          </Button>
-        </Flex>
+      <Box px="5" minH="77vh">
         <ProfileComponent user={user} isLoading={isLoading} />
       </Box>
       <Footer />
