@@ -33,6 +33,8 @@ export default function Reclamer() {
           isClosable: true,
         });
       }
+      // reset form
+      e.target.reset();
     } catch (error) {
       if (!toast.isActive("createReclamationError")) {
         toast({
