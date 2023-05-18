@@ -28,7 +28,7 @@ function Login() {
     <Box>
       <Header />
       <Flex justify="center" align="center" minH="77vh">
-        <Box maxW="container.sm" mx="auto" display={{ base: "block", md: "flex" }}
+        <Box maxW="90vw" mx="auto" display={{ base: "block", md: "flex" }}
           justifyContent={"space-between"}
           alignItems="center" px={4} py={6}
           bgColor={"green"} bg="#f5f8f9" p="8" borderRadius="md"

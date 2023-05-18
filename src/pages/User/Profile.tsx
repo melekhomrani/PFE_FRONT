@@ -16,6 +16,7 @@ const UserProfile = () => {
       <Box px="5" minH="77vh">
         <ProfileComponent user={user} isLoading={isLoading} />
       </Box>
+      <Box m="4" />
       <Footer />
     </>
   );

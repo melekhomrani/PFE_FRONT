@@ -65,15 +65,15 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
   }
 
   return (
-    <Box bg="white" >
+    <Flex bg="white" justifyContent={"center"} alignContent="center" minH={"76vh"}>
       <Box
         display={{ base: "block", md: "flex" }}
         justifyContent={"space-between"}
-        alignItems="center" px={4} py={6}
+        alignItems="center" minW="90vw"
         bgColor={"green"} bg="#f5f8f9" p="8" borderRadius="md"
         boxShadow="md" border={"1px"} borderColor="gray.300"
       >
-        <Box p="8" h="100%" mt="-40px" flex={1} maxW="xl" mx={{ base: "auto", lg: "5" }} mb={8}>
+        <Box h="100%" maxW="xl" mx={{ base: "auto", lg: "5" }} >
           <Text fontSize="2xl" fontWeight="bold" mb={2}>
             Personal Information
           </Text>
@@ -98,7 +98,6 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
                 </Text>
                 <Text fontSize="lg">{user.email}</Text>
               </Box>
-
             </VStack>
           </SkeletonText>
         </Box>
@@ -130,7 +129,6 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
                   <FormLabel>New Password</FormLabel>
                   <Input type="password" isInvalid={!passwordMatch} placeholder="New password" id="newPasswordComfirm" name="newPasswordComfirm" />
                   <Text color="red.500" display={!passwordMatch ? "block" : "none"} fontSize="sm" mt="1">Password comfirmation doesn't match</Text>
-                  {/* <FormErrorMessage>Password comfirmation doesn't match</FormErrorMessage> */}
                 </FormControl>
                 <Button isDisabled={!passwordMatch} type="submit" form="updatePasswordForm" colorScheme="red" mt="3" size="lg">
                   Change Password
@@ -140,7 +138,7 @@ const ProfileComponent = ({ isLoading, user }: UserProps) => {
           </SkeletonText>
         </Box>
       </Box>
-    </Box>
+    </Flex>
   );
 };
 
