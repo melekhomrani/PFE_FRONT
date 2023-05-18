@@ -10,12 +10,14 @@ import AdminUsers from "./pages/Admin/Users";
 import AdminTypes from "./pages/Admin/Types";
 import AdminRoles from "./pages/Admin/Roles";
 import Calendar from "./pages/Admin/Calendar";
+import ChangePasswordAdmin from "./pages/Admin/ChangePassword";
 // user pages
 import UserHome from "./pages/User/Home";
 import UserProfile from "./pages/User/Profile";
 import AdminAccessFlows from "./pages/Admin/AccessFlows";
 import AuthGuard from "./components/AuthGuard";
 import Reclamer from "./pages/Reclamer";
+import ChangePasswordUser from "./pages/User/ChangePassword";
 
 export default function Router() {
   return (
@@ -28,10 +30,12 @@ export default function Router() {
         <Route path="/user" >
           <Route index path="" element={<AuthGuard><UserHome /></AuthGuard>} />
           <Route path="profile" element={<AuthGuard><UserProfile /></AuthGuard>} />
+          <Route path="password" element={<AuthGuard><ChangePasswordUser /></AuthGuard>} />
         </Route>
         {/* admin links */}
         <Route path="/admin" element={<AuthGuard><AdminIndex /></AuthGuard>} >
           <Route index element={<AuthGuard><AdminHome /></AuthGuard>} />
+          <Route path="password" element={<AuthGuard><ChangePasswordAdmin /></AuthGuard>} />
           <Route path="profile" element={<AuthGuard><AdminProfile /></AuthGuard>} />
           <Route path="users" element={<AuthGuard><AdminUsers /></AuthGuard>} />
           <Route path="reclamations" element={<AuthGuard><AdminReclamations /></AuthGuard>} />

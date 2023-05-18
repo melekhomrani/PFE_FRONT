@@ -42,15 +42,13 @@ const DropDownMenu = (user: any) => {
           {!user && "username"}
         </MenuButton>
         <MenuList>
-          <Link to="/user/profile">
-            <MenuItem gap={2}>
-              <BiUserCircle color='red' size={20} />
-              Profile
-            </MenuItem>
-          </Link>
-          <MenuItem gap={2}>
+          <MenuItem as={Link} to="/user/profile" gap={2}>
+            <BiUserCircle color='red' size={20} />
+            Profile
+          </MenuItem>
+          <MenuItem as={Link} to="/user/password" gap={2}>
             <AiOutlineSetting color='red' size={20} />
-            Settings
+            Change Password
           </MenuItem>
           <MenuItem gap={2} onClick={() => handleLogout()}>
             <BiLogOutCircle color='red' size={20} />
@@ -64,9 +62,8 @@ const DropDownMenu = (user: any) => {
 
 function Header() {
   const location = useLocation();
-  const isLoginPage = location.pathname === '/login';
+  // const isLoginPage = location.pathname === '/login';
   const { isLoading, data: user } = useMe()
-  const { data: isAdmin } = useIsAdmin()
   return (
     <Flex bg={colors.headerBG} py="8" align={"center"} justify="space-between" px="8" h="12vh" mb="1vh">
       <MyLink to={"/"}>
