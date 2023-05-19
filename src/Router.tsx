@@ -18,6 +18,11 @@ import AdminAccessFlows from "./pages/Admin/AccessFlows";
 import AuthGuard from "./components/AuthGuard";
 import Reclamer from "./pages/Reclamer";
 import ChangePasswordUser from "./pages/User/ChangePassword";
+import UserDashHome from "./pages/userDash/userDashHome";
+import UserIndex from "./pages/userDash/Index";
+
+//user dashboard
+import UserMesReclamations from "./pages/userDash/Reclamations";
 
 export default function Router() {
   return (
@@ -42,6 +47,14 @@ export default function Router() {
           <Route path="reclamationTypes" element={<AuthGuard><AdminTypes /></AuthGuard>} />
           <Route path="roles" element={<AuthGuard><AdminRoles /></AuthGuard>} />
           <Route path="accessFlows" element={<AuthGuard><AdminAccessFlows /></AuthGuard>} />
+          <Route path="calendar" element={<AuthGuard><Calendar /></AuthGuard>} />
+          <Route path="*" element={<h1>404</h1>} />
+        </Route>
+        <Route path="/userDash" element={<AuthGuard><UserIndex /></AuthGuard>} >
+          <Route index element={<AuthGuard><UserDashHome/></AuthGuard>} />
+          <Route path="password" element={<AuthGuard><ChangePasswordAdmin /></AuthGuard>} />
+          <Route path="profile" element={<AuthGuard><AdminProfile /></AuthGuard>} />
+          <Route path="mesReclamations" element={<AuthGuard><UserMesReclamations /></AuthGuard>} />
           <Route path="calendar" element={<AuthGuard><Calendar /></AuthGuard>} />
           <Route path="*" element={<h1>404</h1>} />
         </Route>
