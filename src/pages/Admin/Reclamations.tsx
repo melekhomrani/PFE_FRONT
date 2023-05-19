@@ -21,11 +21,14 @@ import { useState } from 'react';
 import Reclamation from '../../interfaces/Reclamation';
 import ReviewReclamation from '../../components/Admin/Reclamation';
 import useGetAllTypes from '../../hooks/useGetAllTypes';
+import useSetArchive from '../../hooks/useSetReclamToArchive';
 
 
 const Reclamations = () => {
   const { isLoading, isSuccess, data } = useGetAllReclamations();
   const {isLoading: isLoadingTypes, isSuccess: isSuccessTypes, data: dataTypes} = useGetAllTypes();
+
+  const archiveMutation = useSetArchive();
   
 
   // sort by date 
@@ -77,6 +80,11 @@ const Reclamations = () => {
               setCurrentReclamation(reclamation);
               console.log("clicked from view reclam")
             }}>View</Button>
+            <Button variant={"outline"} colorScheme='red' size="sm" mr="2" onClick={
+              () => {
+                archiveMutation.mutate(reclamation.id);
+              }
+            }>Archive</Button>
           <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
         </Td>
       </Tr>)
