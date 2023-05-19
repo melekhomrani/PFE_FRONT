@@ -4,8 +4,10 @@ import { Navigate, Outlet } from 'react-router-dom'
 import MySidebar from '../../components/Admin/Sidebar'
 import { useAuthStore } from '../../context/AuthStore'
 import { useSidebarStore } from '../../context/SidebarStore'
+import setTitle from '../../hooks/useSetTitle'
 
 function AdminIndex() {
+  setTitle("Admin Dashboard - Esprit CRM")
   const user = useAuthStore(state => state.user)
   const { collapsed } = useSidebarStore(state => state)
 

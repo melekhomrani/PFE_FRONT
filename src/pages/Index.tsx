@@ -30,8 +30,8 @@ function Home() {
                 </Button>
               </MyLink>
               {
-                !isLoading && isSuccess && isAdmin &&
-                <MyLink to="/admin">
+                !isLoading && isSuccess &&
+                <MyLink to={isAdmin ? "/admin" : "/userDash"}>
                   <Button colorScheme={"red"} color="white" size="lg" px="8">
                     Dashboard
                   </Button>

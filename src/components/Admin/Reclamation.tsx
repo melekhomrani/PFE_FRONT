@@ -131,8 +131,6 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
     }
   };
 
-  if(!error && !isLoading) console.log(data);
-
   return (
     <Box>
       <Modal isOpen={true} onClose={onClose}>
