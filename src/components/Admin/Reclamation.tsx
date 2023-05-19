@@ -78,6 +78,7 @@ import {
 import Reclamation from "../../interfaces/Reclamation";
 import Progress from "../../interfaces/EnumProgress";
 import useUpdateReclamProgress, { UpdateReclamProgressProps } from "../../hooks/useUpdateReclamProgress";
+import useGetCanSetState from "../../hooks/useGetCanSetState";
 
 interface ReclamationProps {
   reclam: any;
@@ -86,6 +87,7 @@ interface ReclamationProps {
 }
 
 const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
+  const {isLoading, error, data} = useGetCanSetState(reclam.id);
   const [selectedProgress, setSelectedProgress] = useState(reclam.progress);
 
   const mutation = useUpdateReclamProgress();
@@ -128,6 +130,8 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
       console.log(error);
     }
   };
+
+  if(!error && !isLoading) console.log(data);
 
   return (
     <Box>
@@ -179,7 +183,7 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
                     {reclam.description}
                   </Box>
                 </Flex>
-
+                { data &&
                 <Flex direction="column" align="flex-start" w="100%">
                   <Box mb="2" fontSize="sm" fontWeight="bold">
                     Progress
@@ -191,7 +195,7 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
                     <option key={Progress.canceled} value={Progress.canceled}>Cancled</option>
                     <option key={Progress.done} value={Progress.done}>Done</option>
                   </Select>
-                </Flex>
+                </Flex>}
 
                 <Flex direction="column" align="flex-start" w="100%">
                   <Box mb="2" fontSize="sm" fontWeight="bold">
