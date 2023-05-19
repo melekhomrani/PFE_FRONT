@@ -74,11 +74,13 @@ import {
   VStack,
   Button,
   useToast,
+  Text,
 } from "@chakra-ui/react";
 import Reclamation from "../../interfaces/Reclamation";
 import Progress from "../../interfaces/EnumProgress";
 import useUpdateReclamProgress, { UpdateReclamProgressProps } from "../../hooks/useUpdateReclamProgress";
 import useGetCanSetState from "../../hooks/useGetCanSetState";
+import { useAuthStore } from "../../context/AuthStore";
 
 interface ReclamationProps {
   reclam: any;
@@ -130,6 +132,8 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
       console.log(error);
     }
   };
+
+  console.log("reclam", reclam)
 
   return (
     <Box>
@@ -194,6 +198,7 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
                     <option key={Progress.done} value={Progress.done}>Done</option>
                   </Select>
                 </Flex>}
+                <Text>Archive State: {reclam.archived}</Text>
 
                 <Flex direction="column" align="flex-start" w="100%">
                   <Box mb="2" fontSize="sm" fontWeight="bold">
@@ -212,9 +217,10 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
             </form>
           </ModalBody>
           <ModalFooter>
+          { data &&
             <Button type="submit" form="updateReclamationForm" colorScheme="blue" mr={3}>
               Save
-            </Button>
+            </Button>}
           </ModalFooter>
         </ModalContent>
       </Modal>
