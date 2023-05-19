@@ -13,6 +13,7 @@ import {
   Flex,
   useDisclosure,
   Skeleton,
+  Input,
 } from '@chakra-ui/react'
 import useGetAllTypes from '../../hooks/useGetAllTypes';
 import { AiOutlineUserAdd } from 'react-icons/ai';
@@ -39,6 +40,27 @@ const Types = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [typeToEdit, setTypeToEdit] = useState<Type | null>(null);
   const [typeToDelete, setTypeToDelete] = useState<Type | null>(null);
+  const [textFilter, setTextFilter] = useState<string>("");
+
+  let typesElem;
+
+  if (types) {
+    typesElem = types?.filter(
+      (type: Type) =>
+        type.typeName.toLowerCase().includes(textFilter.toLowerCase()) ||
+        type.id.toString().includes(textFilter.toLowerCase())
+    )
+    .map((type: Type) => (
+      <Tr key={type.id}>
+        <Td textAlign={"center"} isNumeric>{type.id}</Td>
+        <Td textAlign={"center"}>{type.typeName}</Td>
+        <Td textAlign={"center"}>
+          <Button variant={"outline"} colorScheme={"blue"} mr={"2"} onClick={() => { setTypeToEdit(type) }}>Edit</Button>
+          <Button variant={"outline"} colorScheme={"red"} onClick={() => { setTypeToDelete(type) }}>Delete</Button>
+        </Td>
+      </Tr>
+    ))
+  }
 
   return (
     <Box>
@@ -49,6 +71,7 @@ const Types = () => {
           <Button leftIcon={<AiOutlineUserAdd />} onClick={onOpen} >Add Type</Button>
           <AddType isOpen={isOpen} onClose={onClose} />
         </Flex>
+        <Input placeholder="Search" mb={"2"} onChange={(e) => { setTextFilter(e.target.value) }} />
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
           <Table size={'md'} variant={"simple"}>
             <Thead>
@@ -72,16 +95,7 @@ const Types = () => {
                   </Td>
                 </>
               ) : (
-                isSuccess && types.map((type: Type) => (
-                  <Tr key={type.id}>
-                    <Td textAlign={"center"} isNumeric>{type.id}</Td>
-                    <Td textAlign={"center"}>{type.typeName}</Td>
-                    <Td textAlign={"center"}>
-                      <Button variant={"outline"} colorScheme={"blue"} mr={"2"} onClick={() => { setTypeToEdit(type) }}>Edit</Button>
-                      <Button variant={"outline"} colorScheme={"red"} onClick={() => { setTypeToDelete(type) }}>Delete</Button>
-                    </Td>
-                  </Tr>
-                ))
+                isSuccess && typesElem
               )}
             </Tbody>
           </Table>

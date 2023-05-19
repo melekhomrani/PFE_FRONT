@@ -14,6 +14,7 @@ import {
   Flex,
   useDisclosure,
   Skeleton,
+  Input,
 } from '@chakra-ui/react'
 import { AiFillPlusSquare } from 'react-icons/ai';
 import useGetAllAccessFlows from '../../hooks/useGetAllAccessFlows';
@@ -43,6 +44,33 @@ const AdminAccessFlows = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [accessFlowToUpdate, setAccessFlowToUpdate] = useState<AccessFlow | null>(null);
   const [accessFlowToDelete, setAccessFlowToDelete] = useState<AccessFlow | null>(null);
+  const [textFilter, setTextFilter] = useState<string>("");
+
+
+  let accessFlowsElem;
+
+  if (accessFlows) {
+    accessFlowsElem = accessFlows?.filter(
+      (accessFlow: AccessFlow) =>
+        accessFlow.reclamationType.typeName.toLowerCase().includes(textFilter.toLowerCase())
+    )
+    .map((accessFlow: AccessFlow) => (
+      <Tr key={accessFlow.id}>
+        {/* <Td textAlign={"center"}>{accessFlow.id}</Td> */}
+        <Td textAlign={"center"}>{accessFlow.reclamationType.typeName}</Td>
+        <Td textAlign={"center"}>{accessFlow.create.length}</Td>
+        <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
+        <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
+        <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
+        <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
+        <Td textAlign={"center"}>
+          <Button variant={"outline"} onClick={() => setAccessFlowToUpdate(accessFlow)} colorScheme="blue" mr={3}>
+            Edit
+          </Button>
+        </Td>
+      </Tr>
+    ))
+  }
 
   // const counts = countRoles(accessFlowToUpdate);
 
@@ -54,6 +82,7 @@ const AdminAccessFlows = () => {
           {/* <Button leftIcon={<AiFillPlusSquare />} >Add Access Flow</Button> */}
 
         </Flex>
+        <Input placeholder="Search" onChange={(e) => setTextFilter(e.target.value)} />
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
           <Table size={'md'} variant={"simple"}>
             <Thead>
@@ -95,22 +124,7 @@ const AdminAccessFlows = () => {
                     </Td>
                   </>
                 ) : (
-                  isSuccess && accessFlows.map((accessFlow: AccessFlow) => (
-                    <Tr key={accessFlow.id}>
-                      {/* <Td textAlign={"center"}>{accessFlow.id}</Td> */}
-                      <Td textAlign={"center"}>{accessFlow.reclamationType.typeName}</Td>
-                      <Td textAlign={"center"}>{accessFlow.create.length}</Td>
-                      <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
-                      <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
-                      <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
-                      <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
-                      <Td textAlign={"center"}>
-                        <Button variant={"outline"} onClick={() => setAccessFlowToUpdate(accessFlow)} colorScheme="blue" mr={3}>
-                          Edit
-                        </Button>
-                      </Td>
-                    </Tr>
-                  ))
+                  isSuccess && accessFlowsElem
                 )
               }
             </Tbody>

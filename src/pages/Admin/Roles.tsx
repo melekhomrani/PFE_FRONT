@@ -13,6 +13,7 @@ import {
   Flex,
   useDisclosure,
   Skeleton,
+  Input,
 } from '@chakra-ui/react'
 import useGetAllRoles from '../../hooks/useGetAllRoles';
 import { AiOutlineUserAdd } from 'react-icons/ai';
@@ -38,6 +39,28 @@ const Roles = () => {
   });
   const [roleToUpdate, setRoleToUpdate] = useState<Role | null>(null);
   const [roleToDelete, setRoleToDelete] = useState<Role | null>(null);
+  const [textFilter, setTextFilter] = useState<string>("");
+
+  let rolesElem;
+  if (roles) {
+    rolesElem = roles?.filter(
+      (role: Role) =>
+        role.name.toLowerCase().includes(textFilter.toLowerCase())
+    )
+    .map((role: Role) => (
+        <Tr key={role.id}>
+          {/* <Td textAlign={"center"} isNumeric>{role.id}</Td> */}
+          <Td textAlign={"center"}>{role.name}</Td>
+          <Td textAlign={"center"}>
+            <Button onClick={() => {
+              setRoleToUpdate(role);
+            }} variant="outline" colorScheme={"blue"} mr={"2"}>Edit</Button>
+            <Button variant="outline" colorScheme={"red"} onClick={() => { setRoleToDelete(role) }}>Delete</Button>
+          </Td>
+        </Tr>)
+      )
+    
+    }
 
   return (
     <Box>
@@ -47,6 +70,7 @@ const Roles = () => {
           <Button leftIcon={<AiOutlineUserAdd />} onClick={addNewRole.onOpen} >Add Role</Button>
           <AddRole isOpen={addNewRole.isOpen} onClose={addNewRole.onClose} />
         </Flex>
+        <Input placeholder="Search" onChange={(e) => { setTextFilter(e.target.value) }} />
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
           <Table size={'md'} variant={"simple"}>
             <Thead>
@@ -69,20 +93,7 @@ const Roles = () => {
                     <Skeleton height="20px" mb="2" />
                   </Td>
                 </>
-              ) : (
-                roles?.map((role: Role) => (
-                  <Tr key={role.id}>
-                    {/* <Td textAlign={"center"} isNumeric>{role.id}</Td> */}
-                    <Td textAlign={"center"}>{role.name}</Td>
-                    <Td textAlign={"center"}>
-                      <Button onClick={() => {
-                        setRoleToUpdate(role);
-                      }} variant="outline" colorScheme={"blue"} mr={"2"}>Edit</Button>
-                      <Button variant="outline" colorScheme={"red"} onClick={() => { setRoleToDelete(role) }}>Delete</Button>
-                    </Td>
-                  </Tr>)
-                )
-              )
+              ) : rolesElem
               }
             </Tbody>
           </Table>
