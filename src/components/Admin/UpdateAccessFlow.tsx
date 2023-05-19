@@ -75,7 +75,7 @@ function UpdateAccessFlow({ accessFlowData, onClose }: UpdateAccessFlowProps) {
     }
     const accessFlowId = accessFlowData.id;
     try {
-      // await mutation.mutateAsync({ accessFlowId, accessFlow });
+      await mutation.mutateAsync({ accessFlowId, accessFlow });
       if (!toast.isActive("accessFlowUpdated")) {
         toast({
           id: "accessFlowUpdated",
