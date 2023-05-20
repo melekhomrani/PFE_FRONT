@@ -38,7 +38,7 @@ const DropDownMenu = (user: any) => {
           _hover={{ bg: "transparent" }}
           onClick={() => setIsOpen(!isOpen)}
         >
-          {user && <Avatar size="sm" bgColor={"red"} name={name} />}
+          {user && <Avatar size="sm" bgColor={"red"} color="white" name={name} />}
           {!user && "username"}
         </MenuButton>
         <MenuList>
