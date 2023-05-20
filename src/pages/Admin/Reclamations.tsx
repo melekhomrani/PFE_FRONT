@@ -26,10 +26,10 @@ import useSetArchive from '../../hooks/useSetReclamToArchive';
 
 const Reclamations = () => {
   const { isLoading, isSuccess, data } = useGetAllReclamations();
-  const {isLoading: isLoadingTypes, isSuccess: isSuccessTypes, data: dataTypes} = useGetAllTypes();
+  const { isLoading: isLoadingTypes, isSuccess: isSuccessTypes, data: dataTypes } = useGetAllTypes();
 
   const archiveMutation = useSetArchive();
-  
+
 
   // sort by date 
   data?.sort((a: Reclamation, b: Reclamation) => {
@@ -52,43 +52,43 @@ const Reclamations = () => {
   let reclamationsElem;
   if (allReclamations) {
     reclamationsElem =
-    allReclamations?.filter(
-      (reclamation: Reclamation) =>
-        reclamation.progress.toLowerCase().includes(progressFilter.toLowerCase())
-    )
-    .filter(
-      (reclamation: Reclamation) =>
-        reclamation.type.typeName.toLowerCase().includes(typeFilter.toLowerCase())
-    )
-    .filter(
-      (reclamation: Reclamation) =>
-        reclamation.subject.toLowerCase().includes(textFilter.toLowerCase()) ||
-        reclamation.author.firstName.toLowerCase().includes(textFilter.toLowerCase()) ||
-        reclamation.author.lastName.toLowerCase().includes(textFilter.toLowerCase()) ||
-        reclamation.progress.toLowerCase().includes(textFilter.toLowerCase()) ||
-        reclamation.type.typeName.toLowerCase().includes(textFilter.toLowerCase())
-    )
-    .map((reclamation: Reclamation) => (
-      <Tr key={reclamation.id}>
-        <Td textAlign={"center"}>{reclamation.subject}</Td>
-        <Td textAlign={"center"}>{reclamation.author.firstName} {reclamation.author.lastName}</Td>
-        <Td textAlign={"center"}>{reclamation.progress}</Td>
-        <Td textAlign={"center"}>{reclamation.type.typeName}</Td>
-        <Td textAlign={"center"}>
-          <Button variant={"outline"} colorScheme="blue" size="sm" mr="2"
-            onClick={() => {
-              setCurrentReclamation(reclamation);
-              console.log("clicked from view reclam")
-            }}>View</Button>
-            <Button variant={"outline"} colorScheme='red' size="sm" mr="2" onClick={
-              () => {
-                archiveMutation.mutate(reclamation.id);
-              }
-            }>Archive</Button>
-          <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
-        </Td>
-      </Tr>)
-    )
+      allReclamations?.filter(
+        (reclamation: Reclamation) =>
+          reclamation.progress?.toLowerCase().includes(progressFilter.toLowerCase())
+      )
+        .filter(
+          (reclamation: Reclamation) =>
+            reclamation.type.typeName.toLowerCase().includes(typeFilter.toLowerCase())
+        )
+        .filter(
+          (reclamation: Reclamation) =>
+            reclamation.subject.toLowerCase().includes(textFilter.toLowerCase()) ||
+            reclamation.author.firstName.toLowerCase().includes(textFilter.toLowerCase()) ||
+            reclamation.author.lastName.toLowerCase().includes(textFilter.toLowerCase()) ||
+            reclamation.progress.toLowerCase().includes(textFilter.toLowerCase()) ||
+            reclamation.type.typeName.toLowerCase().includes(textFilter.toLowerCase())
+        )
+        .map((reclamation: Reclamation) => (
+          <Tr key={reclamation.id}>
+            <Td textAlign={"center"}>{reclamation.subject}</Td>
+            <Td textAlign={"center"}>{reclamation.author.firstName} {reclamation.author.lastName}</Td>
+            <Td textAlign={"center"}>{reclamation.progress}</Td>
+            <Td textAlign={"center"}>{reclamation.type.typeName}</Td>
+            <Td textAlign={"center"}>
+              <Button variant={"outline"} colorScheme="blue" size="sm" mr="2"
+                onClick={() => {
+                  setCurrentReclamation(reclamation);
+                  console.log("clicked from view reclam")
+                }}>View</Button>
+              <Button variant={"outline"} colorScheme='red' size="sm" mr="2" onClick={
+                () => {
+                  archiveMutation.mutate(reclamation.id);
+                }
+              }>Archive</Button>
+              <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
+            </Td>
+          </Tr>)
+        )
   }
 
   return (
@@ -96,7 +96,7 @@ const Reclamations = () => {
       <Heading mb={"55"}>Reclamations</Heading>
       <HStack>
         <Input type="text" placeholder='Search' onChange={(e) => setTextFilter(e.target.value)} />
-        <Select placeholder="Filter by progress" onChange={(e)=> setProgressFilter(e.target.value)}>
+        <Select placeholder="Filter by progress" onChange={(e) => setProgressFilter(e.target.value)}>
           <option value="">All</option>
           <option value="waiting">Waiting</option>
           <option value="processing">Processing</option>
@@ -104,7 +104,7 @@ const Reclamations = () => {
           <option value="done">Done</option>
           <option value="cancelled">Cancelled</option>
         </Select>
-        <Select placeholder="Filter by type" onChange={(e)=> setTypeFilter(e.target.value)}>
+        <Select placeholder="Filter by type" onChange={(e) => setTypeFilter(e.target.value)}>
           <option value="">All</option>
           {isSuccessTypes && dataTypes?.map((type: any) => (
             <option key={type.id} value={type.typeName}>{type.typeName}</option>
