@@ -10,5 +10,5 @@ export default interface Reclamation {
   progress: Progress,
   type: Type,
   dateCreation: Date
-
+  dateUpdate: Date
 }

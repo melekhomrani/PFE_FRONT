@@ -65,7 +65,7 @@ function Header() {
   // const isLoginPage = location.pathname === '/login';
   const { isLoading, data: user } = useMe()
   return (
-    <Flex bg={colors.headerBG} py="8" align={"center"} justify="space-between" px="8" h="12vh" mb="1vh">
+    <Flex bg={colors.headerBG} py="8" align={"center"} justify="space-between" px="8" h="12vh" >
       <MyLink to={"/"}>
         <Box maxW="container.sm">
           <Image src={Logo} alt="Esprit Logo" maxW="150px" />
