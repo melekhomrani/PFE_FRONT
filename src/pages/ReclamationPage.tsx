@@ -165,18 +165,6 @@ const ReclamationPage = () => {
                 </Box>
               )) : <div>No comments</div>}
             </Box>
-
-            <Box>
-              {/* Existing comments */}
-              <Flex mb={4} alignItems="center">
-                <Avatar name="User 1" src="user1.jpg" />
-                <Box ml={2}>
-                  <Text fontWeight="bold">User 1</Text>
-                  <Text fontSize="sm">Comment text goes here...</Text>
-                </Box>
-              </Flex>
-
-            </Box>
           </Box>
         </Box>
       </Flex >
