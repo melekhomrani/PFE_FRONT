@@ -54,22 +54,22 @@ const AdminAccessFlows = () => {
       (accessFlow: AccessFlow) =>
         accessFlow.reclamationType.typeName.toLowerCase().includes(textFilter.toLowerCase())
     )
-    .map((accessFlow: AccessFlow) => (
-      <Tr key={accessFlow.id}>
-        {/* <Td textAlign={"center"}>{accessFlow.id}</Td> */}
-        <Td textAlign={"center"}>{accessFlow.reclamationType.typeName}</Td>
-        <Td textAlign={"center"}>{accessFlow.create.length}</Td>
-        <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
-        <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
-        <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
-        <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
-        <Td textAlign={"center"}>
-          <Button variant={"outline"} onClick={() => setAccessFlowToUpdate(accessFlow)} colorScheme="blue" mr={3}>
-            Edit
-          </Button>
-        </Td>
-      </Tr>
-    ))
+      .map((accessFlow: AccessFlow) => (
+        <Tr key={accessFlow.id}>
+          {/* <Td textAlign={"center"}>{accessFlow.id}</Td> */}
+          <Td textAlign={"center"}>{accessFlow.reclamationType.typeName}</Td>
+          <Td textAlign={"center"}>{accessFlow.create.length}</Td>
+          <Td textAlign={"center"}>{accessFlow.consult.length}</Td>
+          <Td textAlign={"center"}>{accessFlow.approve.length}</Td>
+          <Td textAlign={"center"}>{accessFlow.notify.length}</Td>
+          <Td textAlign={"center"}>{accessFlow.validate.length}</Td>
+          <Td textAlign={"center"}>
+            <Button variant={"outline"} onClick={() => setAccessFlowToUpdate(accessFlow)} colorScheme="blue" mr={3}>
+              Edit
+            </Button>
+          </Td>
+        </Tr>
+      ))
   }
 
   // const counts = countRoles(accessFlowToUpdate);
@@ -80,7 +80,6 @@ const AdminAccessFlows = () => {
         <Flex mb={"55"} justifyContent={"space-between"} alignItems={"center"} >
           <Heading>Access Flows</Heading>
           {/* <Button leftIcon={<AiFillPlusSquare />} >Add Access Flow</Button> */}
-
         </Flex>
         <Input placeholder="Search" onChange={(e) => setTextFilter(e.target.value)} />
         <TableContainer boxShadow='base' p='6' rounded='md' bg='white' >
