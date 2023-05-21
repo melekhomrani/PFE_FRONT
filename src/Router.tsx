@@ -23,6 +23,7 @@ import UserIndex from "./pages/userDash/Index";
 
 //user dashboard
 import UserMesReclamations from "./pages/userDash/Reclamations";
+import NeededReclamations from "./pages/userDash/NeededReclamsTab";
 
 export default function Router() {
   return (
@@ -55,6 +56,7 @@ export default function Router() {
           <Route path="password" element={<AuthGuard><ChangePasswordAdmin /></AuthGuard>} />
           <Route path="profile" element={<AuthGuard><AdminProfile /></AuthGuard>} />
           <Route path="mesReclamations" element={<AuthGuard><UserMesReclamations /></AuthGuard>} />
+          <Route path="actionsNeeded" element={<AuthGuard><NeededReclamations /></AuthGuard>} />
           <Route path="calendar" element={<AuthGuard><Calendar /></AuthGuard>} />
           <Route path="*" element={<h1>404</h1>} />
         </Route>
