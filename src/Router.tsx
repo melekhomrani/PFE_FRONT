@@ -54,7 +54,7 @@ export default function Router() {
           <Route path="*" element={<h1>404</h1>} />
         </Route>
         <Route path="/userDash" element={<AuthGuard><UserIndex /></AuthGuard>} >
-          <Route index element={<AuthGuard><UserDashHome/></AuthGuard>} />
+        <Route index element={<AuthGuard><UserMesReclamations /></AuthGuard>} />
           <Route path="password" element={<AuthGuard><ChangePasswordAdmin /></AuthGuard>} />
           <Route path="profile" element={<AuthGuard><AdminProfile /></AuthGuard>} />
           <Route path="mesReclamations" element={<AuthGuard><UserMesReclamations /></AuthGuard>} />

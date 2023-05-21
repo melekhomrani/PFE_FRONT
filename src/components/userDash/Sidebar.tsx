@@ -50,22 +50,17 @@ const MyUserSidebar = () => {
             </Flex>
             <Menu style={{ background: "red" }}>
               <Box as="ul" p={collapsed ? "" : "10px"} bgColor="red">
-                <Item
-                  data-testid="dashboard"
-                  title="Dashboard"
-                  to=" "
-                  icon={<RiDashboardFill />}
+              <Item
+                  title="Mes reclamations"
+                  to="mesReclamations"
+                  icon={<AiOutlineFileAdd />}
                 />
                 <Item
                   title="Profile"
                   to="profile"
                   icon={<FaUserCircle />}
                 />
-                <Item
-                  title="Mes reclamations"
-                  to="mesReclamations"
-                  icon={<AiOutlineFileAdd />}
-                />
+                
                 <Item
                   title="Actions needed"
                   to="actionsNeeded"
