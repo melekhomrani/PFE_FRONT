@@ -185,12 +185,12 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
                     {reclam.description}
                   </Box>
                 </Flex>
-                { data &&
+                { true &&
                 <Flex direction="column" align="flex-start" w="100%">
                   <Box mb="2" fontSize="sm" fontWeight="bold">
                     Progress
                   </Box>
-                  <Select defaultValue={reclam.progress} onChange={handleProgressChange}>
+                  <Select defaultValue={reclam.progress} onChange={handleProgressChange} isDisabled={!data}>
                     <option key={Progress.waiting} value={Progress.waiting}>Waiting</option>
                     <option key={Progress.processing} value={Progress.processing}>In Progress</option>
                     <option key={Progress.validated} value={Progress.validated}>Validated</option>
