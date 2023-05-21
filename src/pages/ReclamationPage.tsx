@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import useGetReclamation from "../hooks/useGetReclamation";
-import { Avatar, Box, Button, Divider, Flex, Heading, Input, Text, Textarea } from "@chakra-ui/react";
+import { Avatar, Box, Button, Divider, Flex, Heading, Input, Text, Textarea, VStack } from "@chakra-ui/react";
 import useGetAllComments from "../hooks/useGetAllComments";
 import { useState } from "react";
 import useCreateComment from "../hooks/useCreateComment";
@@ -54,13 +54,82 @@ const ReclamationPage = () => {
           bgColor={"green"} bg="#f5f8f9" my="5" borderRadius="md"
           boxShadow="md" border={"1px"} borderColor="gray.300">
           <Box py={10} bg="gray.100" px={{ base: '4', lg: '8' }}>
-            <Heading>Reclamation id: {id}</Heading>
+            <Heading mb={8}>Reclamation id: {id}</Heading>
             <Box>
-              <Text>Titre: {data?.title}</Text>
-              <Text>Description: {data?.description}</Text>
-              <Text>Progress: {data?.progress}</Text>
-              <Text>Created at: {data?.dateCreation} </Text>
-              <Text>Updated at: {data?.dateUpdate}</Text>
+              <Box>
+                <VStack spacing="1rem">
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Author
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.author.firstName} {data.author.lastName}
+                    </Box>
+                  </Flex>
+
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Type
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.type.typeName}
+                    </Box>
+                  </Flex>
+
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Subject
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.subject}
+                    </Box>
+                  </Flex>
+
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Description
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.description}
+                    </Box>
+                  </Flex>
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Status
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.progress}
+                    </Box>
+                  </Flex>
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Created at
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.dateCreation.toLocaleString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </Box>
+                  </Flex>
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Updated at
+                    </Box>
+                    <Box ps="1" fontSize="sm" color="gray.500">
+                      {data.dateUpdate.toLocaleString("en-US", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </Box>
+                  </Flex>
+                </VStack>
+
+              </Box>
             </Box>
             <Divider my={4} />
             <Box>
