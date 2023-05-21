@@ -36,7 +36,7 @@ function Calendar() {
       </HStack>
       {isLoading && <div>Loading...</div>}
       {isError && <div>Error</div>}
-      <Box w={{base: "xs", lg:"4xl", xl:"4xl", "2xl":"4xl", md:"2xl", sm:"xs"}} h="2xl" bgColor="red">
+      <Box w={{base: "xs", lg:"4xl", xl:"4xl", "2xl":"4xl", md:"2xl", sm:"xs"}} h="2xl" bgColor="">
       {data ? <ResponsiveCalendar
         data={data}
         from={from}
