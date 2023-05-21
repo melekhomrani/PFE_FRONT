@@ -24,6 +24,7 @@ import UserIndex from "./pages/userDash/Index";
 //user dashboard
 import UserMesReclamations from "./pages/userDash/Reclamations";
 import NeededReclamations from "./pages/userDash/NeededReclamsTab";
+import ReclamationPage from "./pages/ReclamationPage";
 
 export default function Router() {
   return (
@@ -32,6 +33,7 @@ export default function Router() {
         <Route path="/" element={<AuthGuard><Home /></AuthGuard>} />
         <Route path="/login" element={<Login />} />
         <Route path="/reclamer" element={<AuthGuard><Reclamer /></AuthGuard>} />
+        <Route path="/reclamation/:id" element={<AuthGuard><ReclamationPage /></AuthGuard>} />
         {/* user links */}
         <Route path="/user" >
           <Route index path="" element={<AuthGuard><UserHome /></AuthGuard>} />
