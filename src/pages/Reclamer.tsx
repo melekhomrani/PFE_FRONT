@@ -8,8 +8,10 @@ import useGetAllTypes from "../hooks/useGetAllTypes";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import useGetAllowedTypes from "../hooks/useGetAllowedTypes";
+import setTitle from "../hooks/useSetTitle";
 
 export default function Reclamer() {
+  setTitle("Reclamer - Esprit CRM");
   const user = useAuthStore(state => state.user);
   const toast = useToast();
   const allowedTypes = useGetAllowedTypes();

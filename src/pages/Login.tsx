@@ -2,9 +2,11 @@ import { Box, Button, Heading, Input, VStack, FormControl, FormLabel, Text, Spin
 import { Link, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import useLogin from "../hooks/useLogin";
+import setTitle from "../hooks/useSetTitle";
 
 function Login() {
   const navigate = useNavigate()
+  setTitle("Login - Esprit CRM")
 
   const localStorageToken = localStorage.getItem('token')
   const { isLoading, data, error, mutateAsync } = useLogin()
