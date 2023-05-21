@@ -77,7 +77,6 @@ const Reclamations = () => {
                   setCurrentReclamation(reclamation);
                   console.log("clicked from view reclam")
                 }}>View</Button>
-              <Button variant={"outline"} colorScheme="red" size="sm" mr="2">Delete</Button>
             </Td>
           </Tr>)
         )
