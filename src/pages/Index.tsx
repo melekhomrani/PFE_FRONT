@@ -19,17 +19,17 @@ function Home() {
       <Flex align="center" justify="center" minH="77vh">
         <Box maxW="container.md" mx="auto" px="6">
           <Heading as="h1" size="3xl" mb="6" textAlign="center" color="#ed1c24">
-            Welcome to Esprit Reclamation Management System
+            Welcome to Esprit CRM
           </Heading>
           <Text fontSize="xl" mb="12" textAlign="center" color="black">
-            Our Reclamation Management System helps you streamline the complaint management process and improve customer satisfaction. With our easy-to-use platform, you can manage customer complaints or requests for compensation, assign them to the appropriate teams or individuals, and track their progress.
+            Our Complaint Management System helps you streamline the complaint management process and improve customer satisfaction. With our easy-to-use platform, you can manage customer complaints or requests for compensation, assign them to the appropriate teams or individuals, and track their progress.
           </Text>
           <Flex justify={"center"}>
           <VStack>
             <Flex justify="center" direction={{ base: "column", md: "row" }} gap="5">
               <MyLink to="/reclamer" >
                 <Button colorScheme={"red"} color="white" size="lg" px="8">
-                  Get Started
+                  Submit complaint
                 </Button>
               </MyLink>
               {
