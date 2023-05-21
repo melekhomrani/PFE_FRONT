@@ -47,7 +47,7 @@ const Users = () => {
   const [userToUpdate, setuserToUpdate] = useState<User | null>(null);
   const [userToDelete, setuserToDelete] = useState<User | null>(null);
   const [textFilter, setTextFilter] = useState<string>("");
-  const [roleFilter, setRoleFilter] = useState<string>("all");
+  const [roleFilter, setRoleFilter] = useState<string>("");
 
   if (users) {
     console.log(users);
@@ -97,12 +97,12 @@ const Users = () => {
             setTextFilter(e.target.value);
           }
         } />
-        <Select placeholder="Filter by role" onChange={
+        <Select onChange={
           (e) => {
             setRoleFilter(e.target.value);
           }
         }>
-          <option value="">All</option>
+          <option selected value="">All</option>
           {roles?.map((role: any) => (
             <option key={role.id} value={role.name}>{role.name}</option>
           ))}
