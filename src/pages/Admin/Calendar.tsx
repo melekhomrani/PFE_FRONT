@@ -47,6 +47,7 @@ function Calendar() {
         yearSpacing={40}
         monthBorderColor="#ffffff"
         dayBorderWidth={2}
+        //@ts-ignore
         direction={direction}
         dayBorderColor="#ffffff"
         tooltip={({day, value, color}: any)=>{
