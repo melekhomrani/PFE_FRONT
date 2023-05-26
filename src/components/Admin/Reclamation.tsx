@@ -89,7 +89,7 @@ interface ReclamationProps {
 }
 
 const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
-  const {isLoading, error, data} = useGetCanSetState(reclam.id);
+  const { isLoading, error, data } = useGetCanSetState(reclam.id);
   const [selectedProgress, setSelectedProgress] = useState(reclam.progress);
 
   const mutation = useUpdateReclamProgress();
@@ -185,19 +185,19 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
                     {reclam.description}
                   </Box>
                 </Flex>
-                { true &&
-                <Flex direction="column" align="flex-start" w="100%">
-                  <Box mb="2" fontSize="sm" fontWeight="bold">
-                    Progress
-                  </Box>
-                  <Select defaultValue={reclam.progress} onChange={handleProgressChange} isDisabled={!data}>
-                    <option key={Progress.waiting} value={Progress.waiting}>Waiting</option>
-                    <option key={Progress.processing} value={Progress.processing}>In Progress</option>
-                    <option key={Progress.validated} value={Progress.validated}>Validated</option>
-                    <option key={Progress.canceled} value={Progress.canceled}>Cancled</option>
-                    <option key={Progress.done} value={Progress.done}>Done</option>
-                  </Select>
-                </Flex>}
+                {true &&
+                  <Flex direction="column" align="flex-start" w="100%">
+                    <Box mb="2" fontSize="sm" fontWeight="bold">
+                      Progress
+                    </Box>
+                    <Select defaultValue={reclam.progress} onChange={handleProgressChange} isDisabled={!data}>
+                      <option key={Progress.waiting} value={Progress.waiting}>Waiting</option>
+                      <option key={Progress.processing} value={Progress.processing}>In Progress</option>
+                      <option key={Progress.validated} value={Progress.validated}>Validated</option>
+                      <option key={Progress.cancelled} value={Progress.cancelled}>Cancelled</option>
+                      <option key={Progress.done} value={Progress.done}>Done</option>
+                    </Select>
+                  </Flex>}
                 <Text>Archive State: {reclam.archived}</Text>
 
                 <Flex direction="column" align="flex-start" w="100%">
@@ -217,10 +217,10 @@ const ReviewReclamation = ({ reclam, isOpen, onClose }: ReclamationProps) => {
             </form>
           </ModalBody>
           <ModalFooter>
-          { data &&
-            <Button type="submit" form="updateReclamationForm" colorScheme="blue" mr={3}>
-              Save
-            </Button>}
+            {data &&
+              <Button type="submit" form="updateReclamationForm" colorScheme="blue" mr={3}>
+                Save
+              </Button>}
           </ModalFooter>
         </ModalContent>
       </Modal>

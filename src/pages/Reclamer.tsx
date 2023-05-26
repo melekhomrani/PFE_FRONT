@@ -53,7 +53,7 @@ export default function Reclamer() {
   return (
     <>
       <Header />
-      <Flex justify={"center"} alignItems="center" maxW="container.sm" mx="auto" minH="77vh">
+      <Flex justify={"center"} alignItems="center" maxW="container.sm" mx="auto" minH="78vh">
         <Box bg="#f5f8f9" p="8" borderRadius="md" boxShadow="md" border="1px" borderColor="gray.300">
           <Link to="/">
             <Image marginTop="3" src={logo} maxW="xs" />
